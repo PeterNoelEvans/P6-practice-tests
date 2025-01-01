@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Section - P6 Entrance Exam</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .question { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .hidden { display: none; }
+        .result { font-size: 1.2em; margin-top: 20px; padding: 15px; background-color: #f0f0f0; }
+        .correct { color: green; }
+        .incorrect { color: red; }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        .stage {
+            display: none;
+        }
+        .stage.active {
+            display: block;
+        }
+        .stage-indicator {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .lesson-link {
+            color: #007bff;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <button onclick="window.location.href='/dashboard.html'" class="button">Back to Dashboard</button>
+        <span id="studentName"></span>
+    </div>
+
+    <h1>Grammar Section</h1>
+    <div class="stage-indicator">Stage 1: Basic Grammar</div>
+    
+    <div id="stage1" class="stage active">
+        <form id="quizForm">
+            <!-- 1 -->
+            <div class="question">
+                <p>
+                    1. Read the short paragraph and choose the correct answer:<br><br>
+                    "Lisa wakes up early every morning. She makes breakfast for her little brother and then walks him to school before going to her own classes. She always says, 'Breakfast is the most important meal of the day!'"
+                    <br><br>
+                    Which sentence about Lisa is correct?
+                </p>
+                <input type="radio" name="q1" value="a"> a. Lisa wakes up late.<br>
+                <input type="radio" name="q1" value="b"> b. Lisa has no brother.<br>
+                <input type="radio" name="q1" value="c"> c. Lisa walks her brother to school.<br>
+                <input type="radio" name="q1" value="d"> d. Lisa hates breakfast.<br>
+            </div>
+
+            <!-- 2 -->
+            <div class="question">
+                <p>
+                    2. Read the conversation and choose the best response:<br><br>
+                    Mother: "Have you finished your homework, Kevin?"<br>
+                    Kevin: "Not yet, Mom. I'm still working on it."<br><br>
+                    What does Kevin mean?
+                </p>
+                <input type="radio" name="q2" value="a"> a. He finished his homework yesterday.<br>
+                <input type="radio" name="q2" value="b"> b. He hasn't started his homework.<br>
+                <input type="radio" name="q2" value="c"> c. He is still doing his homework.<br>
+                <input type="radio" name="q2" value="d"> d. He doesn't have any homework.<br>
+            </div>
+
+            <!-- 3 -->
+            <div class="question">
+                <p>
+                    3. Read the text:<br><br>
+                    "My family goes to the park every Sunday. We pack a picnic basket, play games, and enjoy the sunshine. It's our favorite day of the week!"
+                    <br><br>
+                    Which sentence is true according to the text?
+                </p>
+                <input type="radio" name="q3" value="a"> a. The family goes to the park every day.<br>
+                <input type="radio" name="q3" value="b"> b. They do not like the sunshine.<br>
+                <input type="radio" name="q3" value="c"> c. They bring food to the park.<br>
+                <input type="radio" name="q3" value="d"> d. They always go on Saturday.<br>
+            </div>
+
+            <!-- 4 -->
+            <div class="question">
+                <p>
+                    4. Read the short note:<br><br>
+                    "Sara is going to the store to buy milk and eggs. She hopes to be back home before noon."
+                    <br><br>
+                    Which is correct about Sara?
+                </p>
+                <input type="radio" name="q4" value="a"> a. She wants to buy flowers.<br>
+                <input type="radio" name="q4" value="b"> b. She plans to buy milk.<br>
+                <input type="radio" name="q4" value="c"> c. She went to the store yesterday.<br>
+                <input type="radio" name="q4" value="d"> d. She doesn't plan on returning home.<br>
+            </div>
+
+            <!-- 5 -->
+            <div class="question">
+                <p>
+                    5. Read the dialogue:<br><br>
+                    Teacher: "Where is your homework, John?"<br>
+                    John: "I'm sorry, I left it at home."<br>
+                    Teacher: "Remember to bring it tomorrow."
+                    <br><br>
+                    What can we infer about John?
+                </p>
+                <input type="radio" name="q5" value="a"> a. He completed his homework but forgot it.<br>
+                <input type="radio" name="q5" value="b"> b. He didn't do his homework.<br>
+                <input type="radio" name="q5" value="c"> c. He never does his homework.<br>
+                <input type="radio" name="q5" value="d"> d. He said he didn't have homework.<br>
+            </div>
+
+            <!-- 6 -->
+            <div class="question">
+                <p>
+                    6. Read the sentence:<br><br>
+                    "My mother usually ______ dinner at 7 p.m., but today she is cooking it later."
+                    <br><br>
+                    Which verb form completes the sentence?
+                </p>
+                <input type="radio" name="q6" value="a"> a. cook<br>
+                <input type="radio" name="q6" value="b"> b. cooks<br>
+                <input type="radio" name="q6" value="c"> c. cooking<br>
+                <input type="radio" name="q6" value="d"> d. cooked<br>
+            </div>
+
+            <!-- 7 -->
+            <div class="question">
+                <p>
+                    7. Read the text:<br><br>
+                    "Ben and Lucy are siblings. Ben is tall, and Lucy is short. They both love playing basketball."
+                    <br><br>
+                    Which statement is correct?
+                </p>
+                <input type="radio" name="q7" value="a"> a. Lucy is taller than Ben.<br>
+                <input type="radio" name="q7" value="b"> b. Both siblings hate sports.<br>
+                <input type="radio" name="q7" value="c"> c. Ben is Lucy's brother.<br>
+                <input type="radio" name="q7" value="d"> d. They don't like basketball.<br>
+            </div>
+
+            <!-- 8 -->
+            <div class="question">
+                <p>
+                    8. Read the sentence:<br><br>
+                    "I always brush my teeth ______ I go to bed."
+                    <br><br>
+                    Which word fits best?
+                </p>
+                <input type="radio" name="q8" value="a"> a. because<br>
+                <input type="radio" name="q8" value="b"> b. before<br>
+                <input type="radio" name="q8" value="c"> c. after<br>
+                <input type="radio" name="q8" value="d"> d. if<br>
+            </div>
+
+            <!-- 9 -->
+            <div class="question">
+                <p>
+                    9. Read the short story:<br><br>
+                    "Anna wants to bake a cake for her mother's birthday. She has eggs, sugar, and flour, but she forgot to buy butter."
+                    <br><br>
+                    What does Anna need to buy?
+                </p>
+                <input type="radio" name="q9" value="a"> a. Sugar<br>
+                <input type="radio" name="q9" value="b"> b. Flour<br>
+                <input type="radio" name="q9" value="c"> c. Eggs<br>
+                <input type="radio" name="q9" value="d"> d. Butter<br>
+            </div>
+
+            <!-- 10 -->
+            <div class="question">
+                <p>
+                    10. Read the sentence:<br><br>
+                    "Tom said he cannot play outside today because he is feeling ill."
+                    <br><br>
+                    What does "ill" mean in this context?
+                </p>
+                <input type="radio" name="q10" value="a"> a. Very happy<br>
+                <input type="radio" name="q10" value="b"> b. Sick or unwell<br>
+                <input type="radio" name="q10" value="c"> c. Angry<br>
+                <input type="radio" name="q10" value="d"> d. Excited<br>
+            </div>
+
+            <!-- 11 -->
+            <div class="question">
+                <p>
+                    11. Read the text:<br><br>
+                    "My friend Gina is a vegetarian, so she doesn't eat meat or fish. Instead, she loves vegetables, fruits, and grains."
+                    <br><br>
+                    Which is correct?
+                </p>
+                <input type="radio" name="q11" value="a"> a. Gina eats fish every day.<br>
+                <input type="radio" name="q11" value="b"> b. Gina never eats vegetables.<br>
+                <input type="radio" name="q11" value="c"> c. Gina does not eat meat.<br>
+                <input type="radio" name="q11" value="d"> d. Gina is allergic to fruits.<br>
+            </div>
+
+            <!-- 12 -->
+            <div class="question">
+                <p>
+                    12. Read the dialogue:<br><br>
+                    Dad: "Tom, can you help me wash the car?"<br>
+                    Tom: "Sure, Dad. I'll get the bucket and sponge."
+                    <br><br>
+                    What is Tom going to do?
+                </p>
+                <input type="radio" name="q12" value="a"> a. He will drive the car.<br>
+                <input type="radio" name="q12" value="b"> b. He will read a book.<br>
+                <input type="radio" name="q12" value="c"> c. He will play a game.<br>
+                <input type="radio" name="q12" value="d"> d. He will help wash the car.<br>
+            </div>
+
+            <!-- 13 -->
+            <div class="question">
+                <p>
+                    13. Read the sentence:<br><br>
+                    "We ______ to the library every Saturday to study and borrow new books."
+                    <br><br>
+                    Choose the correct verb:
+                </p>
+                <input type="radio" name="q13" value="a"> a. go<br>
+                <input type="radio" name="q13" value="b"> b. goes<br>
+                <input type="radio" name="q13" value="c"> c. are going<br>
+                <input type="radio" name="q13" value="d"> d. went<br>
+            </div>
+
+            <!-- 14 -->
+            <div class="question">
+                <p>
+                    14. Look at this sentence:<br><br>
+                    "Maria is reading a story to her younger sister."
+                    <br><br>
+                    Which question best fits this situation?
+                </p>
+                <input type="radio" name="q14" value="a"> a. Where is Maria playing?<br>
+                <input type="radio" name="q14" value="b"> b. What is Maria doing?<br>
+                <input type="radio" name="q14" value="c"> c. Why is Maria singing?<br>
+                <input type="radio" name="q14" value="d"> d. How old is Maria's brother?<br>
+            </div>
+
+            <!-- 15 -->
+            <div class="question">
+                <p>
+                    15. Read the text:<br><br>
+                    "Jim woke up late this morning. He missed his bus, so he had to run all the way to school. Luckily, he arrived just before the bell rang."
+                    <br><br>
+                    What can we infer?
+                </p>
+                <input type="radio" name="q15" value="a"> a. Jim woke up early.<br>
+                <input type="radio" name="q15" value="b"> b. Jim was on time for the bus.<br>
+                <input type="radio" name="q15" value="c"> c. Jim almost was late for school.<br>
+                <input type="radio" name="q15" value="d"> d. Jim decided not to go to school.<br>
+            </div>
+
+            <!-- 16 -->
+            <div class="question">
+                <p>
+                    16. Look at this sentence:<br><br>
+                    "The children are playing in the park while their parents watch from a bench."
+                    <br><br>
+                    Which word describes "children" in the sentence?
+                </p>
+                <input type="radio" name="q16" value="a"> a. singular noun<br>
+                <input type="radio" name="q16" value="b"> b. adjective<br>
+                <input type="radio" name="q16" value="c"> c. plural noun<br>
+                <input type="radio" name="q16" value="d"> d. pronoun<br>
+            </div>
+
+            <!-- 17 -->
+            <div class="question">
+                <p>
+                    17. Read the conversation:<br><br>
+                    Jenny: "I'm so thirsty!"<br>
+                    Mom: "Would you like some lemonade or water?"<br>
+                    Jenny: "Lemonade, please."
+                    <br><br>
+                    Which sentence is true?
+                </p>
+                <input type="radio" name="q17" value="a"> a. Jenny wants water.<br>
+                <input type="radio" name="q17" value="b"> b. Mom doesn't have lemonade.<br>
+                <input type="radio" name="q17" value="c"> c. Jenny is not thirsty.<br>
+                <input type="radio" name="q17" value="d"> d. Jenny prefers lemonade.<br>
+            </div>
+
+            <!-- 18 -->
+            <div class="question">
+                <p>
+                    18. Read the text:<br><br>
+                    "Mark has a pet dog named Bruno. Bruno loves to chase squirrels in the backyard, but he never catches them."
+                    <br><br>
+                    Which statement is true?
+                </p>
+                <input type="radio" name="q18" value="a"> a. Bruno always catches the squirrels.<br>
+                <input type="radio" name="q18" value="b"> b. Bruno never goes outside.<br>
+                <input type="radio" name="q18" value="c"> c. Bruno's favorite activity is chasing squirrels.<br>
+                <input type="radio" name="q18" value="d"> d. Mark doesn't have a pet.<br>
+            </div>
+
+            <!-- 19 -->
+            <div class="question">
+                <p>
+                    19. Read the sentence:<br><br>
+                    "When I finish my homework, I ______ television."
+                    <br><br>
+                    Which verb form fits best?
+                </p>
+                <input type="radio" name="q19" value="a"> a. watch<br>
+                <input type="radio" name="q19" value="b"> b. watches<br>
+                <input type="radio" name="q19" value="c"> c. watched<br>
+                <input type="radio" name="q19" value="d"> d. am watching<br>
+            </div>
+
+            <!-- 20 -->
+            <div class="question">
+                <p>
+                    20. Read the text:<br><br>
+                    "Kelly's favorite hobby is painting landscapes. She spends hours mixing colors to create a perfect sky."
+                    <br><br>
+                    Which statement is correct?
+                </p>
+                <input type="radio" name="q20" value="a"> a. Kelly hates painting.<br>
+                <input type="radio" name="q20" value="b"> b. Kelly doesn't use colors.<br>
+                <input type="radio" name="q20" value="c"> c. Kelly enjoys painting outdoors.<br>
+                <input type="radio" name="q20" value="d"> d. Kelly is painting animals.<br>
+            </div>
+
+            <!-- 21 -->
+            <div class="question">
+                <p>
+                    21. Look at the sentence:<br><br>
+                    "Alex can't find his keys, so he is looking under the table, behind the couch, and inside his backpack."
+                    <br><br>
+                    Which preposition is <strong>NOT</strong> mentioned in the sentence?
+                </p>
+                <input type="radio" name="q21" value="a"> a. under<br>
+                <input type="radio" name="q21" value="b"> b. behind<br>
+                <input type="radio" name="q21" value="c"> c. next to<br>
+                <input type="radio" name="q21" value="d"> d. inside<br>
+            </div>
+
+            <!-- 22 -->
+            <div class="question">
+                <p>
+                    22. Read the short story:<br><br>
+                    "Lucy has two pet rabbits. She feeds them carrots and lettuce every morning. In the afternoon, she lets them hop around the garden for exercise."
+                    <br><br>
+                    Which is correct?
+                </p>
+                <input type="radio" name="q22" value="a"> a. Lucy has one dog.<br>
+                <input type="radio" name="q22" value="b"> b. Lucy feeds her rabbits only at night.<br>
+                <input type="radio" name="q22" value="c"> c. Lucy takes care of her two rabbits.<br>
+                <input type="radio" name="q22" value="d"> d. Lucy doesn't let the rabbits outside.<br>
+            </div>
+
+            <!-- 23 -->
+            <div class="question">
+                <p>
+                    23. Read the sentence:<br><br>
+                    "Sometimes, I like to read a book ______ I go to sleep, but other times I watch TV."
+                    <br><br>
+                    Choose the best connecting word:
+                </p>
+                <input type="radio" name="q23" value="a"> a. unless<br>
+                <input type="radio" name="q23" value="b"> b. so<br>
+                <input type="radio" name="q23" value="c"> c. after<br>
+                <input type="radio" name="q23" value="d"> d. before<br>
+            </div>
+
+            <!-- 24 -->
+            <div class="question">
+                <p>
+                    24. Read the conversation:<br><br>
+                    Sam: "I'm excited to visit Grandma this weekend!"<br>
+                    Mom: "Me too. She always bakes fresh cookies."
+                    <br><br>
+                    What can we infer?
+                </p>
+                <input type="radio" name="q24" value="a"> a. Sam doesn't like cookies.<br>
+                <input type="radio" name="q24" value="b"> b. Grandma is visiting them.<br>
+                <input type="radio" name="q24" value="c"> c. They plan to go see Grandma soon.<br>
+                <input type="radio" name="q24" value="d"> d. Sam is not happy about the trip.<br>
+            </div>
+
+            <!-- 25 -->
+            <div class="question">
+                <p>
+                    25. Read the text:<br><br>
+                    "My cousin John wants to learn how to swim. He takes lessons twice a week at the community pool."
+                    <br><br>
+                    Which statement is correct?
+                </p>
+                <input type="radio" name="q25" value="a"> a. John already knows how to swim.<br>
+                <input type="radio" name="q25" value="b"> b. John is taking swimming lessons.<br>
+                <input type="radio" name="q25" value="c"> c. John hates swimming.<br>
+                <input type="radio" name="q25" value="d"> d. John only swims once a month.<br>
+            </div>
+
+            <button type="submit" class="button">Submit Quiz</button>
+        </form>
+    </div>
+
+    <!-- Stage 2, Stage 3, etc. go in their own <div> blocks, similar format -->
+
+    <div id="results" class="result hidden"></div>
+
+    <script>
+        // Authentication check
+        const authToken = localStorage.getItem('authToken');
+        if (!authToken) {
+            window.location.href = '/login.html';
+        }
+
+        // Display student name
+        document.getElementById('studentName').textContent =
+            'Student: ' + localStorage.getItem('studentName');
+
+        // Stage 1 correct answers (25 total now)
+        const correctAnswers = {
+            q1: 'c',  // Lisa walks her brother to school
+            q2: 'c',  // Kevin is still doing homework
+            q3: 'c',  // They bring food to the park
+            q4: 'b',  // She plans to buy milk
+            q5: 'a',  // He did it but forgot it
+            q6: 'b',  // "cooks"
+            q7: 'c',  // Ben is Lucy's brother
+            q8: 'b',  // "before"
+            q9: 'd',  // butter
+            q10: 'b', // ill = sick or unwell
+            q11: 'c', // Gina does not eat meat
+            q12: 'd', // Help wash the car
+            q13: 'a', // go
+            q14: 'b', // "What is Maria doing?"
+            q15: 'c', // Jim almost was late
+            q16: 'c', // "children" = plural noun
+            q17: 'd', // Jenny prefers lemonade
+            q18: 'c', // Bruno loves chasing squirrels
+            q19: 'a', // "watch"
+            q20: 'c', // She enjoys painting outdoors
+            q21: 'c', // next to
+            q22: 'c', // Lucy cares for 2 rabbits
+            q23: 'd', // before
+            q24: 'c', // They plan to see Grandma soon
+            q25: 'b'  // John is taking swimming lessons
+        };
+
+        // Optional: function to map question text to a grammar topic
+        function getTopicFromQuestion(questionText) {
+            // Adjust or expand as needed
+            if (questionText.includes('sentence')) return 'Sentence Structure';
+            if (questionText.includes('verb')) return 'Verbs';
+            if (questionText.includes('adjective')) return 'Adjectives';
+            if (questionText.includes('pronoun')) return 'Pronouns';
+            if (questionText.includes('preposition')) return 'Prepositions';
+            return 'Reading & Inference';
+        }
+
+        // Submit Handler
+        document.getElementById('quizForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            let score = 0;
+            let results = [];
+
+            // Calculate score for all 25 questions
+            Object.keys(correctAnswers).forEach(question => {
+                const selected = document.querySelector(\`input[name="\${question}"]:checked\`);
+                const questionElement = document.querySelector(\`input[name="\${question}"]\`)
+                    .closest('.question')
+                    .querySelector('p').textContent;
+
+                if (selected && selected.value === correctAnswers[question]) {
+                    score++;
+                    results.push({
+                        questionText: questionElement,
+                        selectedAnswer: selected.value,
+                        correct: true
+                    });
+                } else {
+                    results.push({
+                        questionText: questionElement,
+                        selectedAnswer: selected ? selected.value : 'Not answered',
+                        topic: getTopicFromQuestion(questionElement),
+                        correct: false
+                    });
+                }
+            });
+
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h3>Quiz Results</h3>
+                <p>Score: ${score}/${Object.keys(correctAnswers).length}</p>
+                <ul>
+                    ${results.map(result =>
+                        `<li class="${result.correct ? 'correct' : 'incorrect'}">
+                            Question: ${result.questionText}<br>
+                            ${result.correct
+                                ? 'Correct!'
+                                : \`Incorrect - Review topic: \${result.topic} <span class="lesson-link">(lesson coming soon)</span>\`}
+                        </li>`
+                    ).join('')}
+                </ul>
+            `;
+            resultsDiv.classList.remove('hidden');
+
+            // Save results to backend (if desired)
+            try {
+                const response = await fetch('/api/results', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': \`Bearer \${authToken}\`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sectionTitle: 'Grammar',
+                        stage: 1,
+                        score,
+                        totalQuestions: Object.keys(correctAnswers).length,
+                        answers: results
+                    })
+                });
+
+                const data = await response.json();
+                if (!data.success) {
+                    alert('Failed to save results: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to save results. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

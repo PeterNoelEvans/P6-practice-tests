@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reading Comprehension - P6 Entrance Exam</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+    }
+    .passage {
+      background-color: #f8f9fa;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-left: 4px solid #007bff;
+      line-height: 1.6;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .hidden {
+      display: none;
+    }
+    .result {
+      font-size: 1.2em;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f0f0f0;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    .stage-indicator {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #e9ecef;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-buttons">
+    <button onclick="window.location.href='/dashboard.html'" class="button">Back to Dashboard</button>
+    <span id="studentName"></span>
+  </div>
+
+  <h1>Reading Comprehension</h1>
+  <div class="stage-indicator">Stage 1: Reading Comprehension</div>
+
+  <div class="passage">
+    <h3>Everyone's Dream</h3>
+    <p>
+      Paula stood in the huge crowd, amazed at how calm and polite everyone was being. 
+      For days, she had heard everyone talk about their worries of violence and fights 
+      breaking out among the crowds that were determined to march on Washington, 
+      but now that Paula was among those waiting to hear Dr. King speak, 
+      she saw no hint that things might turn violent. 
+      In fact, the entire march on Washington had been ___1___, just as Dr. King would want it to be.
+    </p>
+    <p>
+      The crackling noise of the speaker brought Paula's attention back to the podium. 
+      She was close enough that she could see Dr. King as he walked up to the microphone. 
+      He had such a presence about him that the entire crowd immediately fell silent. 
+      His words rang out through the crowd loud and clear. She watched, ___2___, 
+      as he seemed to push his speech away and begin talking as though straight from his heart. 
+      King's voice carried over the crowd as he spoke of his dream for all the people of America. 
+      The crowd could not look away as his words echoed so ___3___ their own thoughts and hopes. 
+      He had said in his speech what everyone in the crowd believed and wanted.
+    </p>
+    <p>
+      When the day finally ended and Paula was back at her hotel room, 
+      she could not go to sleep because she was so excited about the possibilities 
+      of what might be next in America's future. 
+      Could those of different races ever live in peace and ___4___? 
+      She knew she was only one person, and she wasn't sure how much of a difference she could make, 
+      but when she thought about all those people who marched today, 
+      she knew that together they could be ___5___. Paula couldn't wait for tomorrow to arrive.
+    </p>
+  </div>
+
+  <form id="quizForm">
+    <!-- BLANK-FILL QUESTIONS (1–5) -->
+    <div class="question">
+      <p>1. Which word best fits the first blank “___1___” in paragraph 1?</p>
+      <input type="radio" name="q1" value="a" required> a. cheerless<br>
+      <input type="radio" name="q1" value="b"> b. severe<br>
+      <input type="radio" name="q1" value="c"> c. peaceful<br>
+      <input type="radio" name="q1" value="d"> d. loyal<br>
+    </div>
+
+    <div class="question">
+      <p>2. Which word best fits the second blank “___2___” in paragraph 2?</p>
+      <input type="radio" name="q2" value="a" required> a. disappointed<br>
+      <input type="radio" name="q2" value="b"> b. mesmerized<br>
+      <input type="radio" name="q2" value="c"> c. confused<br>
+      <input type="radio" name="q2" value="d"> d. suspicious<br>
+    </div>
+
+    <div class="question">
+      <p>3. Which word or phrase best completes “His words echoed so ___3___ their own thoughts and hopes”?</p>
+      <input type="radio" name="q3" value="a" required> a. far from<br>
+      <input type="radio" name="q3" value="b"> b. differently than<br>
+      <input type="radio" name="q3" value="c"> c. closely with<br>
+      <input type="radio" name="q3" value="d"> d. quietly beside<br>
+    </div>
+
+    <div class="question">
+      <p>4. In the sentence “Could those of different races ever live in peace and ___4___?”, which word best fits?</p>
+      <input type="radio" name="q4" value="a" required> a. harmony<br>
+      <input type="radio" name="q4" value="b"> b. anger<br>
+      <input type="radio" name="q4" value="c"> c. jealousy<br>
+      <input type="radio" name="q4" value="d"> d. doubt<br>
+    </div>
+
+    <div class="question">
+      <p>5. Which word best completes “...she knew that together they could be ___5___.”?</p>
+      <input type="radio" name="q5" value="a" required> a. unstoppable<br>
+      <input type="radio" name="q5" value="b"> b. uninterested<br>
+      <input type="radio" name="q5" value="c"> c. uncertain<br>
+      <input type="radio" name="q5" value="d"> d. unbelievable<br>
+    </div>
+
+    <!-- VOCABULARY / MEANING IN CONTEXT (6–15) -->
+    <div class="question">
+      <p>6. In paragraph 1, “amazed” most closely means:</p>
+      <input type="radio" name="q6" value="a" required> a. terrified<br>
+      <input type="radio" name="q6" value="b"> b. astonished<br>
+      <input type="radio" name="q6" value="c"> c. bored<br>
+      <input type="radio" name="q6" value="d"> d. amused<br>
+    </div>
+
+    <div class="question">
+      <p>7. Which word is an antonym (opposite) of “calm” from paragraph 1?</p>
+      <input type="radio" name="q7" value="a" required> a. peaceful<br>
+      <input type="radio" name="q7" value="b"> b. relaxed<br>
+      <input type="radio" name="q7" value="c"> c. tranquil<br>
+      <input type="radio" name="q7" value="d"> d. agitated<br>
+    </div>
+
+    <div class="question">
+      <p>8. In paragraph 1, “determined” means:</p>
+      <input type="radio" name="q8" value="a" required> a. having a strong will to do something<br>
+      <input type="radio" name="q8" value="b"> b. feeling bored and lazy<br>
+      <input type="radio" name="q8" value="c"> c. lacking confidence<br>
+      <input type="radio" name="q8" value="d"> d. changing one’s mind frequently<br>
+    </div>
+
+    <div class="question">
+      <p>9. “No hint that things might turn violent” suggests that:</p>
+      <input type="radio" name="q9" value="a" required> a. Paula saw many threats<br>
+      <input type="radio" name="q9" value="b"> b. Paula believed violence was certain<br>
+      <input type="radio" name="q9" value="c"> c. Paula saw no sign of trouble<br>
+      <input type="radio" name="q9" value="d"> d. Paula was already involved in a fight<br>
+    </div>
+
+    <div class="question">
+      <p>10. Which is a synonym for “huge” in paragraph 1?</p>
+      <input type="radio" name="q10" value="a" required> a. tiny<br>
+      <input type="radio" name="q10" value="b"> b. enormous<br>
+      <input type="radio" name="q10" value="c"> c. narrow<br>
+      <input type="radio" name="q10" value="d"> d. medium<br>
+    </div>
+
+    <div class="question">
+      <p>11. The phrase “fell silent” (paragraph 2) suggests the crowd:</p>
+      <input type="radio" name="q11" value="a" required> a. started talking loudly<br>
+      <input type="radio" name="q11" value="b"> b. became very quiet<br>
+      <input type="radio" name="q11" value="c"> c. collapsed to the ground<br>
+      <input type="radio" name="q11" value="d"> d. felt sleepy<br>
+    </div>
+
+    <div class="question">
+      <p>12. “presence” in the sentence “He had such a presence about him...” likely means:</p>
+      <input type="radio" name="q12" value="a" required> a. a strong and noticeable charisma<br>
+      <input type="radio" name="q12" value="b"> b. a fancy outfit<br>
+      <input type="radio" name="q12" value="c"> c. a strict set of rules<br>
+      <input type="radio" name="q12" value="d"> d. a gift from a friend<br>
+    </div>
+
+    <div class="question">
+      <p>13. The term “podium” in paragraph 2 refers to a:</p>
+      <input type="radio" name="q13" value="a" required> a. microphone<br>
+      <input type="radio" name="q13" value="b"> b. raised platform for speaking<br>
+      <input type="radio" name="q13" value="c"> c. loudspeaker<br>
+      <input type="radio" name="q13" value="d"> d. musical instrument<br>
+    </div>
+
+    <div class="question">
+      <p>14. “echoed” in paragraph 2 most closely means:</p>
+      <input type="radio" name="q14" value="a" required> a. ignored<br>
+      <input type="radio" name="q14" value="b"> b. repeated or reflected<br>
+      <input type="radio" name="q14" value="c"> c. made quiet<br>
+      <input type="radio" name="q14" value="d"> d. annoyed<br>
+    </div>
+
+    <div class="question">
+      <p>15. Which of these words best replaces “possibilities” in paragraph 3?</p>
+      <input type="radio" name="q15" value="a" required> a. certainties<br>
+      <input type="radio" name="q15" value="b"> b. options for the future<br>
+      <input type="radio" name="q15" value="c"> c. random mistakes<br>
+      <input type="radio" name="q15" value="d"> d. fantasies unrelated to reality<br>
+    </div>
+
+    <!-- COMPREHENSION / INFERENCE (16–25) -->
+    <div class="question">
+      <p>16. Why was Paula amazed at the crowd’s behavior?</p>
+      <input type="radio" name="q16" value="a" required> a. She expected everyone to dance<br>
+      <input type="radio" name="q16" value="b"> b. She expected more violence based on rumors<br>
+      <input type="radio" name="q16" value="c"> c. She thought no one would show up<br>
+      <input type="radio" name="q16" value="d"> d. She was hoping they would cheer loudly<br>
+    </div>
+
+    <div class="question">
+      <p>17. According to the passage, Dr. King began speaking “as though straight from his heart.” This means he was:</p>
+      <input type="radio" name="q17" value="a" required> a. mumbling quietly<br>
+      <input type="radio" name="q17" value="b"> b. confused about his words<br>
+      <input type="radio" name="q17" value="c"> c. speaking sincerely without relying on notes<br>
+      <input type="radio" name="q17" value="d"> d. worried about the microphone<br>
+    </div>
+
+    <div class="question">
+      <p>18. Which phrase best summarizes the main idea of Dr. King’s speech for the crowd?</p>
+      <input type="radio" name="q18" value="a" required> a. It focused on a dream of unity and equality<br>
+      <input type="radio" name="q18" value="b"> b. It was about how to plan a vacation<br>
+      <input type="radio" name="q18" value="c"> c. It stressed the importance of violence<br>
+      <input type="radio" name="q18" value="d"> d. It repeated the same sentence many times<br>
+    </div>
+
+    <div class="question">
+      <p>19. Why couldn’t Paula sleep after returning to her hotel room?</p>
+      <input type="radio" name="q19" value="a" required> a. She couldn’t find a comfortable pillow<br>
+      <input type="radio" name="q19" value="b"> b. She was frightened by the crowd<br>
+      <input type="radio" name="q19" value="c"> c. She was excited about the future<br>
+      <input type="radio" name="q19" value="d"> d. She wanted to watch late-night TV<br>
+    </div>
+
+    <div class="question">
+      <p>20. Which question did Paula consider about America’s future?</p>
+      <input type="radio" name="q20" value="a" required> a. Whether people of different races could live together peacefully<br>
+      <input type="radio" name="q20" value="b"> b. Whether she should leave immediately<br>
+      <input type="radio" name="q20" value="c"> c. How to find a bigger hotel room<br>
+      <input type="radio" name="q20" value="d"> d. Where to eat dinner<br>
+    </div>
+
+    <div class="question">
+      <p>21. Paula sees herself as “only one person,” but what realization gives her hope?</p>
+      <input type="radio" name="q21" value="a" required> a. That she can force people to obey her<br>
+      <input type="radio" name="q21" value="b"> b. That many people working together can create change<br>
+      <input type="radio" name="q21" value="c"> c. That she can ignore everyone else<br>
+      <input type="radio" name="q21" value="d"> d. That nobody will ever join her cause<br>
+    </div>
+
+    <div class="question">
+      <p>22. Dr. King’s strong presence made the crowd fall silent. This suggests:</p>
+      <input type="radio" name="q22" value="a" required> a. The crowd decided to start chanting<br>
+      <input type="radio" name="q22" value="b"> b. The crowd was bored and left<br>
+      <input type="radio" name="q22" value="c"> c. The crowd was deeply respectful and attentive<br>
+      <input type="radio" name="q22" value="d"> d. The microphone stopped working<br>
+    </div>
+
+    <div class="question">
+      <p>23. Which of the following statements is <em>not</em> directly mentioned in the passage?</p>
+      <input type="radio" name="q23" value="a" required> a. Paula worries about violence before hearing Dr. King<br>
+      <input type="radio" name="q23" value="b"> b. Dr. King pushes his prepared notes aside<br>
+      <input type="radio" name="q23" value="c"> c. Paula calls her family on the phone<br>
+      <input type="radio" name="q23" value="d"> d. People had concerns about fights breaking out<br>
+    </div>
+
+    <div class="question">
+      <p>24. In the passage, how does Paula feel about the possibility of racial harmony?</p>
+      <input type="radio" name="q24" value="a" required> a. She believes it’s impossible to achieve<br>
+      <input type="radio" name="q24" value="b"> b. She doubts Dr. King’s sincerity<br>
+      <input type="radio" name="q24" value="c"> c. She has hope because of the large crowd working together<br>
+      <input type="radio" name="q24" value="d"> d. She decides to leave the March early<br>
+    </div>
+
+    <div class="question">
+      <p>25. Overall, which theme best describes “Everyone’s Dream”?</p>
+      <input type="radio" name="q25" value="a" required> a. Hopelessness in the face of conflict<br>
+      <input type="radio" name="q25" value="b"> b. Excitement and optimism for societal change<br>
+      <input type="radio" name="q25" value="c"> c. Anger toward Dr. King’s ideas<br>
+      <input type="radio" name="q25" value="d"> d. The joy of cooking and baking<br>
+    </div>
+
+    <button type="submit" class="button">Submit Quiz</button>
+  </form>
+
+  <div id="results" class="result hidden"></div>
+
+  <script>
+    // Authentication check
+    const authToken = localStorage.getItem('authToken');
+    if (!authToken) {
+      window.location.href = '/login.html';
+    }
+
+    // Display student name
+    document.getElementById('studentName').textContent =
+      'Student: ' + localStorage.getItem('studentName');
+
+    // Correct answers for questions 1–25
+    // Adjust any if you change question wording or options.
+    const correctAnswers = {
+      // Blanks (1–5)
+      q1: 'c', // peaceful
+      q2: 'b', // mesmerized
+      q3: 'c', // closely with
+      q4: 'a', // harmony
+      q5: 'a', // unstoppable
+      // Vocabulary / Context (6–15)
+      q6: 'b', // astonished
+      q7: 'd', // agitated
+      q8: 'a', // strong will
+      q9: 'c', // no sign of trouble
+      q10: 'b', // enormous
+      q11: 'b', // became very quiet
+      q12: 'a', // noticeable charisma
+      q13: 'b', // raised platform for speaking
+      q14: 'b', // repeated or reflected
+      q15: 'b', // options for the future
+      // Comprehension / Inference (16–25)
+      q16: 'b', // expected more violence
+      q17: 'c', // sincere / from the heart
+      q18: 'a', // dream of unity
+      q19: 'c', // excited about the future
+      q20: 'a', // living together peacefully
+      q21: 'b', // many working together
+      q22: 'c', // respectful and attentive
+      q23: 'c', // Paula calls her family is never mentioned
+      q24: 'c', // she has hope
+      q25: 'b'  // excitement and optimism
+    };
+
+    function getTopicFromQuestion(questionText) {
+      if (questionText.includes('blank')) return 'Fill in the Blank';
+      if (questionText.includes('vocabulary') || questionText.includes('synonym') || 
+          questionText.includes('antonym')) return 'Vocabulary';
+      if (questionText.includes('theme') || questionText.includes('inference') || 
+          questionText.includes('why')) return 'Reading Comprehension';
+      if (questionText.includes('main idea')) return 'Main Idea';
+      if (questionText.includes('context')) return 'Context Clues';
+      return 'Reading';
+    }
+
+    document.getElementById('quizForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      let score = 0;
+      let results = [];
+
+      Object.keys(correctAnswers).forEach(question => {
+        const selected = document.querySelector(`input[name="${question}"]:checked`);
+        const questionDiv = document.querySelector(`input[name="${question}"]`)
+          .closest('.question');
+        const questionText = questionDiv.querySelector('p').textContent;
+
+        if (selected && selected.value === correctAnswers[question]) {
+          score++;
+          results.push({
+            questionText,
+            selectedAnswer: selected.value,
+            correct: true
+          });
+        } else {
+          results.push({
+            questionText,
+            selectedAnswer: selected ? selected.value : 'Not answered',
+            topic: getTopicFromQuestion(questionText),
+            correct: false
+          });
+        }
+      });
+
+      // Display results
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = `
+        <h3>Quiz Results</h3>
+        <p>Score: ${score}/${Object.keys(correctAnswers).length}</p>
+        <ul>
+          ${results.map(result => `
+            <li class="${result.correct ? 'correct' : 'incorrect'}">
+              <strong>Q:</strong> ${result.questionText}<br/>
+              ${result.correct ? 'Correct!' : 
+                `Incorrect! - Review topic: ${result.topic} <span class="lesson-link">(lesson coming soon)</span>`}
+            </li>`
+          ).join('')}
+        </ul>
+      `;
+      resultsDiv.classList.remove('hidden');
+
+      // Save results via API
+      try {
+        const response = await fetch('/api/results', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            sectionTitle: 'Reading',
+            stage: 1,
+            score,
+            totalQuestions: Object.keys(correctAnswers).length,
+            answers: results.map(r => ({
+              ...r,
+              topic: getTopicFromQuestion(r.questionText)
+            }))
+          })
+        });
+
+        const data = await response.json();
+        if (!data.success) {
+          if (response.status === 401) {
+            alert('Your session has expired. Please log in again.');
+            window.location.href = '/login.html';
+          } else {
+            alert('Failed to save results. Please try again.');
+          }
+        } else {
+          alert('Results saved successfully!');
+          window.location.href = '/dashboard.html';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to save results. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>

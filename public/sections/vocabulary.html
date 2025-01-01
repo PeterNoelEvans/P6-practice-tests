@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vocabulary Section - P6 Entrance Exam</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .hidden {
+      display: none;
+    }
+    .result {
+      font-size: 1.2em;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f0f0f0;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+    }
+    .section-title {
+      margin-top: 40px;
+      padding: 10px;
+      background-color: #e9ecef;
+      border-radius: 5px;
+    }
+    .stage-indicator {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #e9ecef;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-buttons">
+    <button onclick="window.location.href='/dashboard.html'" class="button">Back to Dashboard</button>
+    <span id="studentName"></span>
+  </div>
+
+  <h1>Vocabulary & Situational Responses</h1>
+  <div class="stage-indicator">Stage 1: Basic Vocabulary</div>
+  
+  <!-- Part 2: Vocabulary -->
+  <div class="section-title"><strong>Part 2: Vocabulary (Questions 1–10)</strong></div>
+  <form id="quizForm">
+    <!-- Q1 -->
+    <div class="question">
+      <p>1. A person who drives a bus every day around the city is a ___.</p>
+      <input type="radio" name="q1" value="a" required> a. pilot<br>
+      <input type="radio" name="q1" value="b"> b. teacher<br>
+      <input type="radio" name="q1" value="c"> c. doctor<br>
+      <input type="radio" name="q1" value="d"> d. driver<br>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question">
+      <p>2. The opposite of "big" is ___.</p>
+      <input type="radio" name="q2" value="a" required> a. small<br>
+      <input type="radio" name="q2" value="b"> b. tall<br>
+      <input type="radio" name="q2" value="c"> c. long<br>
+      <input type="radio" name="q2" value="d"> d. short<br>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question">
+      <p>3. You use a ___ to write notes in your notebook.</p>
+      <input type="radio" name="q3" value="a" required> a. book<br>
+      <input type="radio" name="q3" value="b"> b. pen<br>
+      <input type="radio" name="q3" value="c"> c. ruler<br>
+      <input type="radio" name="q3" value="d"> d. eraser<br>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question">
+      <p>4. A place where you can buy fresh vegetables and other foods is a ___.</p>
+      <input type="radio" name="q4" value="a" required> a. school<br>
+      <input type="radio" name="q4" value="b"> b. hospital<br>
+      <input type="radio" name="q4" value="c"> c. market<br>
+      <input type="radio" name="q4" value="d"> d. library<br>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question">
+      <p>5. The sun usually rises in the ___, bringing light to start the day.</p>
+      <input type="radio" name="q5" value="a" required> a. morning<br>
+      <input type="radio" name="q5" value="b"> b. afternoon<br>
+      <input type="radio" name="q5" value="c"> c. evening<br>
+      <input type="radio" name="q5" value="d"> d. night<br>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question">
+      <p>6. Which word means “very large”?</p>
+      <input type="radio" name="q6" value="a" required> a. enormous<br>
+      <input type="radio" name="q6" value="b"> b. tiny<br>
+      <input type="radio" name="q6" value="c"> c. narrow<br>
+      <input type="radio" name="q6" value="d"> d. lean<br>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question">
+      <p>7. You would typically use a ___ to measure the length of a pencil.</p>
+      <input type="radio" name="q7" value="a" required> a. ruler<br>
+      <input type="radio" name="q7" value="b"> b. spoon<br>
+      <input type="radio" name="q7" value="c"> c. eraser<br>
+      <input type="radio" name="q7" value="d"> d. stapler<br>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question">
+      <p>8. A tool commonly used to cut paper is a pair of ___.</p>
+      <input type="radio" name="q8" value="a" required> a. pens<br>
+      <input type="radio" name="q8" value="b"> b. scissors<br>
+      <input type="radio" name="q8" value="c"> c. crayons<br>
+      <input type="radio" name="q8" value="d"> d. goggles<br>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question">
+      <p>9. Which word is an antonym (opposite) of “cold” in everyday usage?</p>
+      <input type="radio" name="q9" value="a" required> a. warm<br>
+      <input type="radio" name="q9" value="b"> b. icy<br>
+      <input type="radio" name="q9" value="c"> c. chilly<br>
+      <input type="radio" name="q9" value="d"> d. freezing<br>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question">
+      <p>10. Which item is commonly used to erase pencil marks?</p>
+      <input type="radio" name="q10" value="a" required> a. glue<br>
+      <input type="radio" name="q10" value="b"> b. marker<br>
+      <input type="radio" name="q10" value="c"> c. eraser<br>
+      <input type="radio" name="q10" value="d"> d. tape<br>
+    </div>
+
+    <!-- Part 3: Situational Responses (Questions 11–15) -->
+    <div class="section-title"><strong>Part 3: Situational Responses (Questions 11–15)</strong></div>
+
+    <!-- Q11 -->
+    <div class="question">
+      <p>11. You want to cheer your friend up who is about to perform on stage, so you say, “________.”</p>
+      <input type="radio" name="q11" value="a" required> a. Never mind<br>
+      <input type="radio" name="q11" value="b"> b. Hold your tongue<br>
+      <input type="radio" name="q11" value="c"> c. Better luck next time<br>
+      <input type="radio" name="q11" value="d"> d. Break a leg<br>
+    </div>
+
+    <!-- Q12 -->
+    <div class="question">
+      <p>12. You want to thank your friend who did you a special favor, so you say, “________.”</p>
+      <input type="radio" name="q12" value="a" required> a. I couldn’t have done it without you.<br>
+      <input type="radio" name="q12" value="b"> b. My pleasure<br>
+      <input type="radio" name="q12" value="c"> c. Don’t mention it<br>
+      <input type="radio" name="q12" value="d"> d. What a coincidence<br>
+    </div>
+
+    <!-- Q13 -->
+    <div class="question">
+      <p>13. You have spent all your money, so you say, “________.”</p>
+      <input type="radio" name="q13" value="a" required> a. I’m worn out<br>
+      <input type="radio" name="q13" value="b"> b. I’m stony broke<br>
+      <input type="radio" name="q13" value="c"> c. I’m down in the dumps<br>
+      <input type="radio" name="q13" value="d"> d. I’m up to no good<br>
+    </div>
+
+    <!-- Q14 (new situational) -->
+    <div class="question">
+      <p>14. Your friend just sneezed. You want to respond politely, so you say, “________.”</p>
+      <input type="radio" name="q14" value="a" required> a. Excuse me<br>
+      <input type="radio" name="q14" value="b"> b. Bless you<br>
+      <input type="radio" name="q14" value="c"> c. Don’t bother<br>
+      <input type="radio" name="q14" value="d"> d. Don’t mention it<br>
+    </div>
+
+    <!-- Q15 (new situational) -->
+    <div class="question">
+      <p>15. A classmate says, “I’m sorry I stepped on your foot!” You want to forgive them, so you say, “________.”</p>
+      <input type="radio" name="q15" value="a" required> a. You’re welcome<br>
+      <input type="radio" name="q15" value="b"> b. No worries<br>
+      <input type="radio" name="q15" value="c"> c. How dare you!<br>
+      <input type="radio" name="q15" value="d"> d. Please leave<br>
+    </div>
+
+    <!-- Part 4: Dialogue (Questions 16–25) -->
+    <div class="section-title"><strong>Part 4: Dialogue (Questions 16–25)</strong></div>
+
+    <p><em>
+      Alan: Hi Joe, you look a bit off-color. What’s the matter?<br/>
+      Joe: __16__. I’ve been coughing and have had a headache since this morning.<br/>
+      Alan: Did you take some medicine?<br/>
+      Joe: I did, but __17__.<br/>
+      Alan: You should see a doctor.
+    </em></p>
+
+    <!-- Q16 -->
+    <div class="question">
+      <p>16. How does Joe feel right now?</p>
+      <input type="radio" name="q16" value="a" required> a. I’m alive and kicking<br>
+      <input type="radio" name="q16" value="b"> b. I’m totally upset<br>
+      <input type="radio" name="q16" value="c"> c. I’m not feeling well<br>
+      <input type="radio" name="q16" value="d"> d. I’m in two minds<br>
+    </div>
+
+    <!-- Q17 -->
+    <div class="question">
+      <p>17. Joe took some medicine, but what happened?</p>
+      <input type="radio" name="q17" value="a" required> a. I’m recovering<br>
+      <input type="radio" name="q17" value="b"> b. I’m back on my feet<br>
+      <input type="radio" name="q17" value="c"> c. I’m not getting any better<br>
+      <input type="radio" name="q17" value="d"> d. I’m on cloud nine<br>
+    </div>
+
+    <!-- Extend the dialogue or add new dialogues for Q18–Q25 -->
+    <p><em>
+      (Later that day...)<br/>
+      Alan: How was your visit to the doctor?<br/>
+      Joe: __18__. The doctor said I need more rest and gave me new medicine.<br/>
+      Alan: That's good to hear.
+    </em></p>
+
+    <!-- Q18 -->
+    <div class="question">
+      <p>18. What might Joe say to indicate good news from the doctor?</p>
+      <input type="radio" name="q18" value="a" required> a. I still feel terrible<br>
+      <input type="radio" name="q18" value="b"> b. It went horribly wrong<br>
+      <input type="radio" name="q18" value="c"> c. Everything went well<br>
+      <input type="radio" name="q18" value="d"> d. I decided not to go<br>
+    </div>
+
+    <p><em>
+      Joe: But I'm worried about missing school. The doctor said I should stay home for two days.<br/>
+      Alan: __19__? It's important to rest properly.
+    </em></p>
+
+    <!-- Q19 -->
+    <div class="question">
+      <p>19. Which reply from Alan best fits the context?</p>
+      <input type="radio" name="q19" value="a" required> a. That’s too bad, but you should do as the doctor says<br>
+      <input type="radio" name="q19" value="b"> b. You should ignore the advice<br>
+      <input type="radio" name="q19" value="c"> c. Let’s travel to the beach instead<br>
+      <input type="radio" name="q19" value="d"> d. You weren’t sick at all<br>
+    </div>
+
+    <p><em>
+      Joe: You're right. I really need some rest. I have a big exam next week.<br/>
+      Alan: __20__. Make sure you study when you feel better, but not before.
+    </em></p>
+
+    <!-- Q20 -->
+    <div class="question">
+      <p>20. Which response is Alan most likely giving?</p>
+      <input type="radio" name="q20" value="a" required> a. Don’t worry, your health comes first<br>
+      <input type="radio" name="q20" value="b"> b. You should skip the exam altogether<br>
+      <input type="radio" name="q20" value="c"> c. Studying is never important<br>
+      <input type="radio" name="q20" value="d"> d. Go to a party tonight<br>
+    </div>
+
+    <p><em>
+      (Two days later, Joe meets Alan in the school hallway...)<br/>
+      Alan: You look much better now!<br/>
+      Joe: __21__!
+    </em></p>
+
+    <!-- Q21 -->
+    <div class="question">
+      <p>21. How might Joe respond to show he's feeling?</p>
+      <input type="radio" name="q21" value="a" required> a. Actually, I’m sicker than ever<br>
+      <input type="radio" name="q21" value="b"> b. I’m down in the dumps<br>
+      <input type="radio" name="q21" value="c"> c. Thanks, I’m back on my feet<br>
+      <input type="radio" name="q21" value="d"> d. The doctor gave me even worse news<br>
+    </div>
+
+    <p><em>
+      Alan: Let's go to the library to study for that big exam!<br/>
+      Joe: Great idea. __22__ we can help each other.
+    </em></p>
+
+    <!-- Q22 -->
+    <div class="question">
+      <p>22. Which filler best completes Joe’s statement?</p>
+      <input type="radio" name="q22" value="a" required> a. As soon as possible<br>
+      <input type="radio" name="q22" value="b"> b. By the way<br>
+      <input type="radio" name="q22" value="c"> c. This way<br>
+      <input type="radio" name="q22" value="d"> d. With regret<br>
+    </div>
+
+    <p><em>
+      Alan: We should start with Math. I find it a bit tricky.<br/>
+      Joe: __23__. Math is my strongest subject, so I'll show you some tips!
+    </em></p>
+
+    <!-- Q23 -->
+    <div class="question">
+      <p>23. Which response shows Joe’s willingness to help?</p>
+      <input type="radio" name="q23" value="a" required> a. I hate giving advice<br>
+      <input type="radio" name="q23" value="b"> b. That’s a shame<br>
+      <input type="radio" name="q23" value="c"> c. No way<br>
+      <input type="radio" name="q23" value="d"> d. Don’t worry<br>
+    </div>
+
+    <p><em>
+      Alan: Wonderful! Maybe after we finish, we can grab some lunch.<br/>
+      Joe: Sure, I’ve been craving something spicy all day! __24__?
+    </em></p>
+
+    <!-- Q24 -->
+    <div class="question">
+      <p>24. Which phrase might Joe use to suggest a place to eat?</p>
+      <input type="radio" name="q24" value="a" required> a. Where should we go<br>
+      <input type="radio" name="q24" value="b"> b. I have no appetite<br>
+      <input type="radio" name="q24" value="c"> c. Let’s keep studying forever<br>
+      <input type="radio" name="q24" value="d"> d. Let’s skip lunch<br>
+    </div>
+
+    <p><em>
+      Alan: There's a new café near the library that serves spicy noodles.<br/>
+      Joe: Sounds perfect! Let's go there as soon as we finish. __25__!
+    </em></p>
+
+    <!-- Q25 -->
+    <div class="question">
+      <p>25. How might Joe enthusiastically end the conversation?</p>
+      <input type="radio" name="q25" value="a" required> a. No thanks, I’m busy<br>
+      <input type="radio" name="q25" value="b"> b. I’m really not interested<br>
+      <input type="radio" name="q25" value="c"> c. Can’t wait<br>
+      <input type="radio" name="q25" value="d"> d. I’ll pass<br>
+    </div>
+
+    <button type="submit" class="button">Submit Quiz</button>
+  </form>
+
+  <div id="results" class="result hidden"></div>
+
+  <script>
+    // -- Authentication check --
+    const authToken = localStorage.getItem('authToken');
+    if (!authToken) {
+      window.location.href = '/login.html';
+    }
+
+    // Display student name
+    document.getElementById('studentName').textContent =
+      'Student: ' + localStorage.getItem('studentName');
+
+    // Correct answers for questions 1–25
+    // (Adjust as needed if you tweak any questions or options)
+    const correctAnswers = {
+      // Part 2: Vocabulary (1-10)
+      q1: 'd',  // driver
+      q2: 'a',  // small
+      q3: 'b',  // pen
+      q4: 'c',  // market
+      q5: 'a',  // morning
+      q6: 'a',  // enormous
+      q7: 'a',  // ruler
+      q8: 'b',  // scissors
+      q9: 'a',  // warm
+      q10: 'c', // eraser
+
+      // Part 3: Situational (11-15)
+      q11: 'd', // Break a leg
+      q12: 'a', // I couldn’t have done it without you
+      q13: 'b', // I’m stony broke
+      q14: 'b', // Bless you
+      q15: 'b', // No worries
+
+      // Part 4: Dialogue (16-25)
+      q16: 'c', // I’m not feeling well
+      q17: 'c', // I’m not getting any better
+      q18: 'c', // Everything went well
+      q19: 'a', // That’s too bad, but you should do as doc says
+      q20: 'a', // Don’t worry, health first
+      q21: 'c', // I’m back on my feet
+      q22: 'c', // This way
+      q23: 'd', // Don’t worry
+      q24: 'a', // Where should we go
+      q25: 'c'  // Can’t wait
+    };
+
+    function getTopicFromQuestion(questionText) {
+      if (questionText.includes('Part 2:')) return 'Basic Vocabulary';
+      if (questionText.includes('Part 3:')) return 'Situational Usage';
+      if (questionText.includes('Dialogue:')) return 'Contextual Understanding';
+      if (questionText.includes('opposite')) return 'Antonyms';
+      return 'General Vocabulary';
+    }
+
+    document.getElementById('quizForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      let score = 0;
+      let results = [];
+
+      // Evaluate all 25 questions
+      Object.keys(correctAnswers).forEach(question => {
+        const selected = document.querySelector(`input[name="${question}"]:checked`);
+        const questionDiv = document.querySelector(`input[name="${question}"]`)
+          .closest('.question');
+        const questionText = questionDiv.querySelector('p').textContent;
+
+        if (selected && selected.value === correctAnswers[question]) {
+          score++;
+          results.push({
+            questionText,
+            selectedAnswer: selected.value,
+            correct: true
+          });
+        } else {
+          results.push({
+            questionText,
+            selectedAnswer: selected ? selected.value : 'Not answered',
+            correct: false
+          });
+        }
+      });
+
+      // Show results
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = `
+        <h3>Quiz Results</h3>
+        <p>Score: ${score}/${Object.keys(correctAnswers).length}</p>
+        <ul>
+          ${results
+            .map(
+              result => `
+                <li class="${result.correct ? 'correct' : 'incorrect'}">
+                  <strong>Q:</strong> ${result.questionText}<br/>
+                  ${result.correct ? 'Correct!' : 'Incorrect!'}
+                </li>`
+            )
+            .join('')}
+        </ul>
+      `;
+      resultsDiv.classList.remove('hidden');
+
+      // Save results via API
+      try {
+        const response = await fetch('/api/results', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            sectionTitle: 'Vocabulary',
+            stage: 1,
+            score,
+            totalQuestions: Object.keys(correctAnswers).length,
+            answers: results.map(result => ({
+              ...result,
+              topic: getTopicFromQuestion(result.questionText)
+            }))
+          })
+        });
+
+        const data = await response.json();
+        if (!data.success) {
+          alert('Failed to save results: ' + data.error);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to save results. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>

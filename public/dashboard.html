@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - P6 Entrance Exam Practice</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        .section-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+        }
+        .section-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        .button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .score {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .performance-indicator {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .high { background-color: #4CAF50; }
+        .medium { background-color: #FFA500; }
+        .low { background-color: #f44336; }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome, <span id="studentName"></span>!</h1>
+        <div class="nav-buttons">
+            <button onclick="handleLogout()" class="button">Logout</button>
+            <button onclick="window.location.href='/student-summary.html'" class="button">View Summary</button>
+            <div id="adminControls" style="display: none;">
+                <button onclick="resetProgress()" class="button" style="background-color: #dc3545;">Reset Progress</button>
+            </div>
+            <span id="studentName"></span>
+        </div>
+    </header>
+
+    <main>
+        <h2>Your Progress</h2>
+        <div class="overall-progress">
+            <h3>Overall Completion</h3>
+            <div class="progress-bar">
+                <div id="overallProgressBar" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <p id="overallProgressText">0% Complete</p>
+        </div>
+
+        <div id="sections">
+            <!-- Section cards will be inserted here -->
+        </div>
+    </main>
+
+    <script>
+        const sections = [
+            {
+                id: 'grammar',
+                title: 'Grammar',
+                description: 'Test your understanding of English grammar',
+                questions: 25
+            },
+            {
+                id: 'vocabulary',
+                title: 'Vocabulary',
+                description: 'Test your vocabulary and situational language skills',
+                questions: 25
+            },
+            {
+                id: 'reading',
+                title: 'Reading',
+                description: 'Test your reading comprehension and analysis skills',
+                questions: 25
+            },
+            {
+                id: 'geronimo',
+                title: 'Micekings',
+                description: 'Test your understanding of the Micekings series',
+                questions: 26
+            }
+        ];
+
+        async function loadDashboard() {
+            const studentName = localStorage.getItem('studentName');
+            document.getElementById('studentName').textContent = studentName;
+            
+            if (studentName === 'Peter Evans') {
+                document.getElementById('adminControls').style.display = 'inline-block';
+            }
+
+            const sectionsContainer = document.getElementById('sections');
+            const response = await fetch('/api/student/progress', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                }
+            });
+            const progress = await response.json();
+
+            // Update overall progress bar
+            const overallProgressBar = document.getElementById('overallProgressBar');
+            const overallProgressText = document.getElementById('overallProgressText');
+            if (overallProgressBar && overallProgressText) {
+                overallProgressBar.style.width = `${progress.overallProgress}%`;
+                overallProgressText.textContent = `${Math.round(progress.overallProgress)}% Complete`;
+            }
+
+            sections.forEach(section => {
+                const sectionProgress = progress.sections[section.id] || { completed: false, score: 0, stage: 1 };
+                sectionsContainer.innerHTML += `
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3>${section.title}</h3>
+                            ${sectionProgress.completed ? 
+                                `<span class="performance-indicator ${getPerformanceClass(sectionProgress.score)}">
+                                    ${getPerformanceLabel(sectionProgress.score)}
+                                </span>` : 
+                                '<span class="performance-indicator low">Not Started</span>'
+                            }
+                        </div>
+                        <p>${section.description}</p>
+                        <p>${section.questions} questions</p>
+                        <div class="section-status">
+                            <div>
+                                ${sectionProgress.completed 
+                                    ? `<span class="score">Score: ${Math.round(sectionProgress.score)}%</span>
+                                      <br><span>Stage: ${sectionProgress.stage}</span>`
+                                    : '<span>Not attempted</span>'
+                                }
+                            </div>
+                            <button 
+                                onclick="startSection('${section.id}')" 
+                                class="button"
+                                ${sectionProgress.completed ? 'disabled' : ''}
+                            >
+                                ${sectionProgress.completed ? 'Completed' : 'Start'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function startSection(sectionId) {
+            window.location.href = `/sections/${sectionId}.html`;
+        }
+
+        async function handleLogout() {
+            try {
+                const token = localStorage.getItem('authToken');
+                if (!token) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const response = await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                // Clear local storage regardless of server response
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('studentName');
+                window.location.href = '/login.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                // If there's an error, still clear local storage and redirect
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('studentName');
+                window.location.href = '/login.html';
+            }
+        }
+
+        function getPerformanceClass(score) {
+            if (score >= 80) return 'high';
+            if (score >= 60) return 'medium';
+            return 'low';
+        }
+
+        function getPerformanceLabel(score) {
+            if (score >= 80) return 'Excellent';
+            if (score >= 60) return 'Good';
+            return 'Needs Improvement';
+        }
+
+        async function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress?')) {
+                try {
+                    const response = await fetch('/api/reset-progress', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        alert('Progress reset successfully');
+                        window.location.reload();
+                    } else {
+                        alert('Failed to reset progress');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to reset progress');
+                }
+            }
+        }
+
+        // Load dashboard when page loads
+        loadDashboard();
+    </script>
+</body>
+</html> 
