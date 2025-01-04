@@ -87,6 +87,7 @@
             <button onclick="handleLogout()" class="button">Logout</button>
             <button onclick="window.location.href='/student-summary.html'" class="button">View Summary</button>
             <div id="adminControls" style="display: none;">
+                <button onclick="window.location.href='/class-overview.html'" class="button" style="background-color: #28a745;">Class Overview</button>
                 <button onclick="resetProgress()" class="button" style="background-color: #dc3545;">Reset Progress</button>
             </div>
             <span id="studentName"></span>
@@ -129,7 +130,7 @@
                 questions: 25
             },
             {
-                id: 'geronimo',
+                id: 'micekings',
                 title: 'Micekings',
                 description: 'Test your understanding of the Micekings series',
                 questions: 26
@@ -161,7 +162,9 @@
             }
 
             sections.forEach(section => {
-                const sectionProgress = progress.sections[section.id] || { completed: false, score: 0, stage: 1 };
+                const sectionProgress = progress.sections[section.id.toLowerCase()] || 
+                    progress.sections[section.title.toLowerCase()] || 
+                    { completed: false, score: 0, stage: 1 };
                 sectionsContainer.innerHTML += `
                     <div class="section-card">
                         <div class="section-header">
@@ -178,18 +181,34 @@
                         <div class="section-status">
                             <div>
                                 ${sectionProgress.completed 
-                                    ? `<span class="score">Score: ${Math.round(sectionProgress.score)}%</span>
-                                      <br><span>Stage: ${sectionProgress.stage}</span>`
+                                    ? `<span class="score">Score: ${
+                                        section.id === 'grammar' 
+                                            ? Math.round(sectionProgress.score)  // Grammar already sends percentage
+                                            : Math.round((sectionProgress.score / section.questions) * 100)  // Calculate for others
+                                        }%</span>
+                                        <br><span>Stage: ${sectionProgress.stage}</span>`
                                     : '<span>Not attempted</span>'
                                 }
                             </div>
-                            <button 
-                                onclick="startSection('${section.id}')" 
-                                class="button"
-                                ${sectionProgress.completed ? 'disabled' : ''}
-                            >
-                                ${sectionProgress.completed ? 'Completed' : 'Start'}
-                            </button>
+                            <div>
+                                <button 
+                                    onclick="startSection('${section.id}')" 
+                                    class="button"
+                                    ${sectionProgress.completed ? 'disabled' : ''}
+                                >
+                                    ${sectionProgress.completed ? 'Completed' : 'Start'}
+                                </button>
+                                ${sectionProgress.completed ? 
+                                    `<button 
+                                        onclick="reviewSection('${section.id}')" 
+                                        class="button" 
+                                        style="background-color: #17a2b8; margin-left: 10px;"
+                                    >
+                                        Review
+                                    </button>` 
+                                    : ''
+                                }
+                            </div>
                         </div>
                     </div>
                 `;
@@ -197,7 +216,25 @@
         }
 
         function startSection(sectionId) {
-            window.location.href = `/sections/${sectionId}.html`;
+            // Map the section ID to the correct filename
+            const fileMap = {
+                'micekings': 'micekings.html',
+                'grammar': 'grammar.html',
+                'vocabulary': 'vocabulary.html',
+                'reading': 'reading.html'
+            };
+            window.location.href = `/sections/${fileMap[sectionId]}`;
+        }
+
+        function reviewSection(sectionId) {
+            // Map the section ID to the correct filename
+            const fileMap = {
+                'micekings': 'micekings.html',
+                'grammar': 'grammar.html',
+                'vocabulary': 'vocabulary.html',
+                'reading': 'reading.html'
+            };
+            window.location.href = `/sections/${fileMap[sectionId]}?mode=review`;
         }
 
         async function handleLogout() {
@@ -261,6 +298,20 @@
                     alert('Failed to reset progress');
                 }
             }
+        }
+
+        function displaySections(data) {
+            const sections = data.sections;
+            document.querySelectorAll('.section-card').forEach(card => {
+                const sectionTitle = card.querySelector('h3').textContent.toLowerCase();
+                const sectionData = sections[sectionTitle];
+
+                if (sectionData && sectionData.completed) {
+                    card.classList.add('completed');
+                }
+            });
+
+            console.log('Raw section data:', data.sections);
         }
 
         // Load dashboard when page loads

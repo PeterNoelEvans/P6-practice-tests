@@ -41,13 +41,36 @@
             color: #007bff;
             font-style: italic;
         }
+        /* Timer styles */
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 1.2em;
+            z-index: 1000;
+        }
+        .timer.warning {
+            background-color: #ffeeba;
+            color: #856404;
+        }
+        .timer.danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
     <div class="nav-buttons">
         <button onclick="window.location.href='/dashboard.html'" class="button">Back to Dashboard</button>
+        <button onclick="resetSection()" class="button" style="background-color: #dc3545;">Reset This Section</button>
         <span id="studentName"></span>
     </div>
+
+    <div id="timer" class="timer">Time: 00:00</div>
 
     <h1>Grammar Section</h1>
     <div class="stage-indicator">Stage 1: Basic Grammar</div>
@@ -469,11 +492,70 @@
             return 'Reading & Inference';
         }
 
-        // Submit Handler
+        // Timer variables
+        let startTime = Date.now();
+        let timerInterval;
+        
+        // Start timer
+        function startTimer() {
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+        
+        // Update timer display
+        function updateTimer() {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsedTime / 60);
+            const seconds = elapsedTime % 60;
+            const timerElement = document.getElementById('timer');
+            
+            timerElement.textContent = `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Add warning colors
+            if (minutes >= 25) {
+                timerElement.classList.add('danger');
+            } else if (minutes >= 20) {
+                timerElement.classList.add('warning');
+            }
+        }
+        
+        // Reset section function
+        async function resetSection() {
+            if (confirm('Are you sure you want to reset this section? Your progress will be lost.')) {
+                try {
+                    const response = await fetch('/api/reset-section', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            sectionTitle: 'Grammar'  // Change this for each section
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        alert('Section reset successfully');
+                        window.location.href = '/dashboard.html';
+                    } else {
+                        alert('Failed to reset section');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to reset section');
+                }
+            }
+        }
+        
+        // Start timer when page loads
+        startTimer();
+
         document.getElementById('quizForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             let score = 0;
             let results = [];
+            const endTime = Date.now();
+            const timeSpent = Math.floor((endTime - startTime) / 1000);
 
             // Calculate score for all 25 questions
             Object.keys(correctAnswers).forEach(question => {
@@ -503,6 +585,7 @@
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = `
                 <h3>Quiz Results</h3>
+                <p>Time taken: ${Math.floor(timeSpent/60)}m ${timeSpent%60}s</p>
                 <p>Score: ${score}/${Object.keys(correctAnswers).length}</p>
                 <ul>
                     ${results.map(result =>

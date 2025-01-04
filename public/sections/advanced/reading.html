@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Reading Comprehension - Thai Culture</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+    }
+    .passage {
+      background-color: #f8f9fa;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-left: 4px solid #007bff;
+      line-height: 1.6;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .hidden {
+      display: none;
+    }
+    .timer {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-buttons">
+    <button onclick="goToDashboard()" class="button">Back to Dashboard</button>
+    <span id="studentName"></span>
+  </div>
+
+  <div id="timer" class="timer">Time: 00:00</div>
+
+  <h1>Thai Cultural Heritage</h1>
+
+  <div class="passage">
+    <h3>Thailand's Cultural Tapestry</h3>
+    <p>
+      Thailand's rich cultural heritage spans centuries, weaving together traditions, festivals, and daily practices that reflect the nation's deep spiritual roots and community values. In Thai society, the concept of "sanuk" (enjoyment) harmoniously blends with "kreng jai" (consideration for others), creating a unique social fabric that values both personal happiness and collective harmony.
+
+      Traditional festivals mark important moments in the Thai calendar. The Songkran festival, celebrating the Thai New Year in April, transforms streets into scenes of joyful water splashing, while paying respect to elders remains a central aspect of the celebration. Loy Krathong, occurring on the full moon of the twelfth lunar month, sees people releasing decorated baskets onto water bodies, symbolizing the letting go of negativity and expressing gratitude to the water goddess.
+
+      Thai cuisine, recognized globally, reflects the country's agricultural heritage and geographical diversity. Each region contributes distinct flavors: the north offers rich curries, the northeast specializes in spicy salads, the central region presents royal-influenced dishes, and the south excels in seafood preparations. Street food culture in cities like Bangkok demonstrates how traditional cooking adapts to modern urban life while maintaining authentic flavors.
+
+      Buddhism profoundly influences Thai culture, with temples (wats) serving as both spiritual centers and architectural masterpieces. The Thai concept of "merit-making" through good deeds and temple offerings shapes daily life. Traditional arts, from classical dance to intricate handicrafts, often incorporate Buddhist and royal court influences, preserving ancient techniques while embracing contemporary interpretations.
+
+      As Thailand modernizes, efforts to preserve cultural heritage face new challenges. Urban development impacts traditional communities, while younger generations balance ancient customs with global influences. However, innovative cultural programs and community initiatives work to maintain Thailand's unique identity while adapting to contemporary needs. The tourism industry plays a dual role, both showcasing Thai culture and potentially affecting its authenticity.
+    </p>
+  </div>
+
+  <form id="quizForm">
+    <div class="question">
+      <p>1. What two key concepts are mentioned as fundamental to Thai social fabric?</p>
+      <input type="radio" name="q1" value="a"> a. Sanuk and kreng jai<br>
+      <input type="radio" name="q1" value="b"> b. Merit and karma<br>
+      <input type="radio" name="q1" value="c"> c. Buddhism and tourism<br>
+      <input type="radio" name="q1" value="d"> d. Past and present<br>
+    </div>
+
+    <div class="question">
+      <p>2. When does the Songkran festival take place?</p>
+      <input type="radio" name="q2" value="a"> a. During the full moon<br>
+      <input type="radio" name="q2" value="b"> b. In April<br>
+      <input type="radio" name="q2" value="c"> c. In the twelfth lunar month<br>
+      <input type="radio" name="q2" value="d"> d. During winter<br>
+    </div>
+
+    <div class="question">
+      <p>3. What is a key aspect of the Loy Krathong festival?</p>
+      <input type="radio" name="q3" value="a"> a. Water splashing<br>
+      <input type="radio" name="q3" value="b"> b. Releasing decorated baskets on water<br>
+      <input type="radio" name="q3" value="c"> c. Cooking traditional food<br>
+      <input type="radio" name="q3" value="d"> d. Dancing in temples<br>
+    </div>
+
+    <div class="question">
+      <p>4. How does Thai cuisine reflect the country's diversity?</p>
+      <input type="radio" name="q4" value="a"> a. Through different regional specialties<br>
+      <input type="radio" name="q4" value="b"> b. By using only imported ingredients<br>
+      <input type="radio" name="q4" value="c"> c. Through modern fusion dishes<br>
+      <input type="radio" name="q4" value="d"> d. By avoiding spicy foods<br>
+    </div>
+
+    <div class="question">
+      <p>5. What role do temples (wats) play in Thai culture?</p>
+      <input type="radio" name="q5" value="a"> a. Only architectural landmarks<br>
+      <input type="radio" name="q5" value="b"> b. Tourist attractions only<br>
+      <input type="radio" name="q5" value="c"> c. Both spiritual centers and architectural masterpieces<br>
+      <input type="radio" name="q5" value="d"> d. Modern shopping centers<br>
+    </div>
+
+    <div class="question">
+      <p>6. What characterizes the northern region's cuisine?</p>
+      <input type="radio" name="q6" value="a"> a. Rich curries<br>
+      <input type="radio" name="q6" value="b"> b. Spicy salads<br>
+      <input type="radio" name="q6" value="c"> c. Seafood preparations<br>
+      <input type="radio" name="q6" value="d"> d. Royal-influenced dishes<br>
+    </div>
+
+    <div class="question">
+      <p>7. What is the purpose of "merit-making" in Thai culture?</p>
+      <input type="radio" name="q7" value="a"> a. To earn money<br>
+      <input type="radio" name="q7" value="b"> b. To perform good deeds and make temple offerings<br>
+      <input type="radio" name="q7" value="c"> c. To attract tourists<br>
+      <input type="radio" name="q7" value="d"> d. To learn cooking<br>
+    </div>
+
+    <div class="question">
+      <p>8. How do traditional arts in Thailand reflect cultural influences?</p>
+      <input type="radio" name="q8" value="a"> a. They only show modern styles<br>
+      <input type="radio" name="q8" value="b"> b. They incorporate Buddhist and royal court influences<br>
+      <input type="radio" name="q8" value="c"> c. They reject all foreign influences<br>
+      <input type="radio" name="q8" value="d"> d. They focus only on tourism<br>
+    </div>
+
+    <div class="question">
+      <p>9. What challenge does Thai cultural heritage face in modern times?</p>
+      <input type="radio" name="q9" value="a"> a. Complete rejection by young people<br>
+      <input type="radio" name="q9" value="b"> b. Lack of government support<br>
+      <input type="radio" name="q9" value="c"> c. Balancing tradition with modern influences<br>
+      <input type="radio" name="q9" value="d"> d. Disappearance of all festivals<br>
+    </div>
+
+    <div class="question">
+      <p>10. What is the significance of street food in Thai culture?</p>
+      <input type="radio" name="q10" value="a"> a. It's only for tourists<br>
+      <input type="radio" name="q10" value="b"> b. It shows how tradition adapts to modern urban life<br>
+      <input type="radio" name="q10" value="c"> c. It's disappearing from cities<br>
+      <input type="radio" name="q10" value="d"> d. It only serves foreign food<br>
+    </div>
+
+    <div class="question">
+      <p>11. How does the tourism industry affect Thai culture?</p>
+      <input type="radio" name="q11" value="a"> a. It only has negative effects<br>
+      <input type="radio" name="q11" value="b"> b. It has no impact<br>
+      <input type="radio" name="q11" value="c"> c. It plays a dual role in showcasing and potentially affecting authenticity<br>
+      <input type="radio" name="q11" value="d"> d. It only benefits the economy<br>
+    </div>
+
+    <div class="question">
+      <p>12. What characterizes the central region's cuisine?</p>
+      <input type="radio" name="q12" value="a"> a. Spicy salads<br>
+      <input type="radio" name="q12" value="b"> b. Seafood dishes<br>
+      <input type="radio" name="q12" value="c"> c. Rich curries<br>
+      <input type="radio" name="q12" value="d"> d. Royal-influenced dishes<br>
+    </div>
+
+    <div class="question">
+      <p>13. How do younger generations interact with Thai traditions?</p>
+      <input type="radio" name="q13" value="a"> a. They completely reject them<br>
+      <input type="radio" name="q13" value="b"> b. They balance ancient customs with global influences<br>
+      <input type="radio" name="q13" value="c"> c. They only follow modern practices<br>
+      <input type="radio" name="q13" value="d"> d. They ignore all traditions<br>
+    </div>
+
+    <div class="question">
+      <p>14. What aspect of Songkran combines tradition with social values?</p>
+      <input type="radio" name="q14" value="a"> a. Water splashing with respect for elders<br>
+      <input type="radio" name="q14" value="b"> b. Only modern celebrations<br>
+      <input type="radio" name="q14" value="c"> c. Tourist activities<br>
+      <input type="radio" name="q14" value="d"> d. Shopping festivals<br>
+    </div>
+
+    <div class="question">
+      <p>15. What does the text suggest about Thai cultural adaptation?</p>
+      <input type="radio" name="q15" value="a"> a. It resists all change<br>
+      <input type="radio" name="q15" value="b"> b. It maintains balance between tradition and modernity<br>
+      <input type="radio" name="q15" value="c"> c. It abandons all traditions<br>
+      <input type="radio" name="q15" value="d"> d. It only focuses on tourism<br>
+    </div>
+
+    <div class="question">
+      <p>16. What role does Buddhism play in Thai daily life?</p>
+      <input type="radio" name="q16" value="a"> a. It's only for tourists<br>
+      <input type="radio" name="q16" value="b"> b. It shapes daily activities through merit-making<br>
+      <input type="radio" name="q16" value="c"> c. It has no influence<br>
+      <input type="radio" name="q16" value="d"> d. It's only about architecture<br>
+    </div>
+
+    <div class="question">
+      <p>17. How do traditional arts adapt to modern times?</p>
+      <input type="radio" name="q17" value="a"> a. They remain completely unchanged<br>
+      <input type="radio" name="q17" value="b"> b. They embrace contemporary interpretations while preserving techniques<br>
+      <input type="radio" name="q17" value="c"> c. They abandon all traditional elements<br>
+      <input type="radio" name="q17" value="d"> d. They only cater to tourists<br>
+    </div>
+
+    <div class="question">
+      <p>18. What symbolism is associated with Loy Krathong?</p>
+      <input type="radio" name="q18" value="a"> a. Bringing good luck only<br>
+      <input type="radio" name="q18" value="b"> b. Letting go of negativity and expressing gratitude<br>
+      <input type="radio" name="q18" value="c"> c. Celebrating the new year<br>
+      <input type="radio" name="q18" value="d"> d. Tourist entertainment<br>
+    </div>
+
+    <div class="question">
+      <p>19. How does geographical diversity influence Thai cuisine?</p>
+      <input type="radio" name="q19" value="a"> a. It creates distinct regional specialties<br>
+      <input type="radio" name="q19" value="b"> b. It has no effect<br>
+      <input type="radio" name="q19" value="c"> c. It only affects prices<br>
+      <input type="radio" name="q19" value="d"> d. It limits food variety<br>
+    </div>
+
+    <div class="question">
+      <p>20. What approach do community initiatives take toward cultural preservation?</p>
+      <input type="radio" name="q20" value="a"> a. Reject all modern influences<br>
+      <input type="radio" name="q20" value="b"> b. Maintain identity while adapting to contemporary needs<br>
+      <input type="radio" name="q20" value="c"> c. Focus only on tourism<br>
+      <input type="radio" name="q20" value="d"> d. Abandon all traditions<br>
+    </div>
+
+    <div class="question">
+      <p>21. What characterizes the relationship between personal and collective values in Thai society?</p>
+      <input type="radio" name="q21" value="a"> a. Personal values always override collective ones<br>
+      <input type="radio" name="q21" value="b"> b. Collective values eliminate personal happiness<br>
+      <input type="radio" name="q21" value="c"> c. They harmoniously blend together<br>
+      <input type="radio" name="q21" value="d"> d. They are always in conflict<br>
+    </div>
+
+    <div class="question">
+      <p>22. How does urban development affect Thai cultural heritage?</p>
+      <input type="radio" name="q22" value="a"> a. It has no effect<br>
+      <input type="radio" name="q22" value="b"> b. It impacts traditional communities<br>
+      <input type="radio" name="q22" value="c"> c. It only improves culture<br>
+      <input type="radio" name="q22" value="d"> d. It eliminates all traditions<br>
+    </div>
+
+    <div class="question">
+      <p>23. What is the significance of the northeast region's cuisine?</p>
+      <input type="radio" name="q23" value="a"> a. It specializes in spicy salads<br>
+      <input type="radio" name="q23" value="b"> b. It only serves sweet dishes<br>
+      <input type="radio" name="q23" value="c"> c. It focuses on seafood<br>
+      <input type="radio" name="q23" value="d"> d. It has no special characteristics<br>
+    </div>
+
+    <div class="question">
+      <p>24. How do festivals contribute to Thai cultural identity?</p>
+      <input type="radio" name="q24" value="a"> a. They only attract tourists<br>
+      <input type="radio" name="q24" value="b"> b. They mark important moments and preserve traditions<br>
+      <input type="radio" name="q24" value="c"> c. They have no cultural significance<br>
+      <input type="radio" name="q24" value="d"> d. They only focus on entertainment<br>
+    </div>
+
+    <div class="question">
+      <p>25. What is the overall approach to cultural preservation in Thailand?</p>
+      <input type="radio" name="q25" value="a"> a. Completely rejecting change<br>
+      <input type="radio" name="q25" value="b"> b. Balancing preservation with adaptation<br>
+      <input type="radio" name="q25" value="c"> c. Abandoning all traditions<br>
+      <input type="radio" name="q25" value="d"> d. Only focusing on tourism<br>
+    </div>
+
+    <!-- Continue with remaining questions -->
+
+    <button type="submit" class="button">Submit Quiz</button>
+  </form>
+
+  <div id="results" class="result hidden"></div>
+
+  <script>
+    // Timer functionality
+    let timerInterval;
+    const startTime = Date.now();
+    timerInterval = setInterval(function() {
+      const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+      const minutes = Math.floor(elapsedTime / 60);
+      const seconds = elapsedTime % 60;
+      const timerElement = document.getElementById('timer');
+      
+      timerElement.textContent = `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
+
+    // Authentication check
+    const authToken = localStorage.getItem('authToken');
+    if (!authToken) {
+      window.location.href = '/login.html';
+    }
+
+    // Display student name
+    document.getElementById('studentName').textContent = 
+      'Student: ' + localStorage.getItem('studentName');
+
+    // Correct answers with explanations
+    const correctAnswers = {
+      q1: {
+        answer: 'a',
+        explanation: 'The text mentions "sanuk" (enjoyment) and "kreng jai" (consideration for others) as fundamental concepts.'
+      },
+      q2: {
+        answer: 'b',
+        explanation: 'Songkran festival celebrates the Thai New Year in April.'
+      },
+      q3: {
+        answer: 'b',
+        explanation: 'Loy Krathong involves releasing decorated baskets onto water bodies.'
+      },
+      q4: {
+        answer: 'a',
+        explanation: 'Thai cuisine reflects diversity through different regional specialties.'
+      },
+      q5: {
+        answer: 'c',
+        explanation: 'Temples serve as both spiritual centers and architectural masterpieces.'
+      },
+      q6: {
+        answer: 'a',
+        explanation: 'The north offers rich curries according to the text.'
+      },
+      q7: {
+        answer: 'b',
+        explanation: 'Merit-making involves performing good deeds and making temple offerings.'
+      },
+      q8: {
+        answer: 'b',
+        explanation: 'Traditional arts incorporate Buddhist and royal court influences.'
+      },
+      q9: {
+        answer: 'c',
+        explanation: 'Cultural heritage faces the challenge of balancing tradition with modern influences.'
+      },
+      q10: {
+        answer: 'b',
+        explanation: 'Street food shows how tradition adapts to modern urban life while maintaining authenticity.'
+      },
+      q11: {
+        answer: 'c',
+        explanation: 'Tourism plays a dual role in showcasing culture and potentially affecting authenticity.'
+      },
+      q12: {
+        answer: 'd',
+        explanation: 'The central region presents royal-influenced dishes.'
+      },
+      q13: {
+        answer: 'b',
+        explanation: 'Younger generations balance ancient customs with global influences.'
+      },
+      q14: {
+        answer: 'a',
+        explanation: 'Songkran combines water splashing with respect for elders.'
+      },
+      q15: {
+        answer: 'b',
+        explanation: 'Thai culture maintains balance between tradition and modernity.'
+      },
+      q16: {
+        answer: 'b',
+        explanation: 'Buddhism shapes daily activities through merit-making.'
+      },
+      q17: {
+        answer: 'b',
+        explanation: 'Traditional arts embrace contemporary interpretations while preserving techniques.'
+      },
+      q18: {
+        answer: 'b',
+        explanation: 'Loy Krathong symbolizes letting go of negativity and expressing gratitude.'
+      },
+      q19: {
+        answer: 'a',
+        explanation: 'Geographical diversity creates distinct regional specialties in Thai cuisine.'
+      },
+      q20: {
+        answer: 'b',
+        explanation: 'Community initiatives maintain identity while adapting to contemporary needs.'
+      },
+      q21: {
+        answer: 'c',
+        explanation: 'Personal happiness and collective harmony harmoniously blend together.'
+      },
+      q22: {
+        answer: 'b',
+        explanation: 'Urban development impacts traditional communities.'
+      },
+      q23: {
+        answer: 'a',
+        explanation: 'The northeast specializes in spicy salads.'
+      },
+      q24: {
+        answer: 'b',
+        explanation: 'Festivals mark important moments and preserve traditions.'
+      },
+      q25: {
+        answer: 'b',
+        explanation: 'Thailand balances preservation with adaptation to modern needs.'
+      }
+    };
+
+    // Handle review mode
+    const urlParams = new URLSearchParams(window.location.search);
+    const isReviewMode = urlParams.get('mode') === 'review';
+
+    if (isReviewMode) {
+      loadPreviousAnswers();
+    }
+
+    async function loadPreviousAnswers() {
+      try {
+        const response = await fetch('/api/results', {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
+        const data = await response.json();
+        
+        const readingResult = data.sections.find(s => s.sectionTitle === 'advancedreading');
+        
+        if (readingResult) {
+          readingResult.answers.forEach(answer => {
+            const input = document.querySelector(
+              `input[value="${answer.selectedAnswer}"][name="${answer.questionNumber}"]`
+            );
+            if (input) {
+              input.checked = true;
+            }
+          });
+          
+          // Disable all inputs and the submit button
+          document.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.disabled = true;
+          });
+          document.querySelector('button[type="submit"]').style.display = 'none';
+          
+          // Show results
+          displayResults(readingResult.answers);
+        }
+      } catch (error) {
+        console.error('Error loading previous answers:', error);
+      }
+    }
+
+    // Function to display detailed results
+    function displayResults(answers) {
+      const resultsDiv = document.getElementById('results');
+      let resultsHTML = `
+        <h3>Quiz Results</h3>
+        <div class="results-container">
+      `;
+
+      answers.forEach((answer, index) => {
+        const questionNumber = index + 1;
+        const isCorrect = answer.correct;
+        const explanation = correctAnswers[`q${questionNumber}`].explanation;
+        
+        resultsHTML += `
+          <div class="question ${isCorrect ? 'correct' : 'incorrect'}">
+            <p><strong>Question ${questionNumber}:</strong> ${answer.questionText}</p>
+            <p>Your answer: ${answer.selectedAnswer}</p>
+            <p>Correct answer: ${correctAnswers[`q${questionNumber}`].answer}</p>
+            <p class="explanation"><strong>Explanation:</strong> ${explanation}</p>
+          </div>
+        `;
+      });
+
+      resultsHTML += '</div>';
+      resultsDiv.innerHTML = resultsHTML;
+      resultsDiv.classList.remove('hidden');
+    }
+
+    // Add styles for results display
+    const style = document.createElement('style');
+    style.textContent = `
+      .results-container {
+        margin-top: 20px;
+      }
+      .question.correct {
+        background-color: #e6ffe6;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin-bottom: 10px;
+      }
+      .question.incorrect {
+        background-color: #ffe6e6;
+        border-left: 4px solid #dc3545;
+        padding: 15px;
+        margin-bottom: 10px;
+      }
+      .explanation {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-left: 4px solid #17a2b8;
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Modify the submit handler to show results
+    document.getElementById('quizForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const submitButton = event.target.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
+      
+      try {
+        let score = 0;
+        let results = [];
+        const endTime = Date.now();
+        const timeSpent = Math.floor((endTime - startTime) / 1000);
+        
+        Object.keys(correctAnswers).forEach(question => {
+          const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
+          if (selectedAnswer && selectedAnswer.value === correctAnswers[question].answer) {
+            score++;
+          }
+          results.push({
+            questionText: document.querySelector(`[name="${question}"]`).closest('.question').querySelector('p').textContent,
+            selectedAnswer: selectedAnswer ? selectedAnswer.value : 'Not answered',
+            correct: selectedAnswer?.value === correctAnswers[question].answer,
+            explanation: correctAnswers[question].explanation
+          });
+        });
+
+        // Debug the score calculation
+        console.log('Raw score:', score);
+        console.log('Total questions:', Object.keys(correctAnswers).length);
+        const percentage = Math.round((score / Object.keys(correctAnswers).length) * 100);
+        console.log('Calculated percentage:', percentage);
+
+        // Save results to server
+        const response = await fetch('/api/results', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            sectionTitle: 'advancedreading',
+            stage: 1,
+            score: percentage,
+            timeSpent,
+            totalQuestions: Object.keys(correctAnswers).length,
+            answers: results,
+            completed: true
+          })
+        });
+
+        // Debug logging
+        console.log('Saving results:', {
+          sectionTitle: 'advancedreading',
+          score: percentage,
+          timeSpent,
+          totalQuestions: Object.keys(correctAnswers).length,
+          answers: results.length
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to save results');
+        }
+
+        // Display score summary first
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = `
+          <div class="score-summary" style="text-align: center; margin: 20px 0; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+            <h2>Quiz Complete!</h2>
+            <p style="font-size: 24px; margin: 10px 0;">Score: ${percentage}%</p>
+            <p>Time taken: ${Math.floor(timeSpent / 60)}m ${timeSpent % 60}s</p>
+            <p>Questions correct: ${score} out of ${Object.keys(correctAnswers).length}</p>
+            <div style="margin-top: 20px;">
+              <button onclick="showDetailedResults()" class="button">Show Detailed Results</button>
+            </div>
+          </div>
+        `;
+        resultsDiv.classList.remove('hidden');
+
+        // Scroll to results
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Or alternatively, scroll to top
+        // window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Store results for detailed view
+        window.quizResults = results;
+
+        // Clear timer interval
+        clearInterval(timerInterval);
+
+      } catch (error) {
+        console.error('Error saving results:', error);
+        alert('Failed to save results. Please try again.');
+        submitButton.disabled = false;
+      }
+    });
+
+    // Function to show detailed results
+    function showDetailedResults() {
+      const results = window.quizResults;
+      if (!results) return;
+
+      displayResults(results);
+
+      // Scroll to the top of the results after they're displayed
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Add continue button after detailed results
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML += `
+        <div style="margin-top: 20px; text-align: center;">
+          <p>Take your time to review your answers.</p>
+          <button onclick="goToDashboard()" class="button">
+            Continue to Dashboard
+          </button>
+        </div>
+      `;
+    }
+
+    // Function to handle navigation back to dashboard
+    function goToDashboard() {
+      try {
+        window.location.replace('/advanced-dashboard.html');
+      } catch (error) {
+        console.error('Navigation error:', error);
+        // Fallback navigation
+        window.location.href = '/advanced-dashboard.html';
+      }
+    }
+  </script>
+</body>
+</html> 

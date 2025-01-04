@@ -8,6 +8,11 @@
         // Check if user is logged in
         window.onload = function() {
             const authToken = localStorage.getItem('authToken');
+            // Redirect to HTTPS if not already using it
+            if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
+                window.location.href = 'https://' + window.location.hostname + ':3443' + window.location.pathname;
+                return;
+            }
             if (authToken) {
                 // If logged in, go to dashboard
                 window.location.href = '/dashboard.html';
@@ -17,6 +22,9 @@
             }
         }
     </script>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=https://192.168.1.44:3443">
+    </noscript>
 </head>
 <body>
     <p>Redirecting...</p>

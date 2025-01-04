@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Advanced Vocabulary - Academic Words</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        .passage {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #007bff;
+            line-height: 1.6;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .image-choices {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 15px 0;
+            justify-items: center;
+            align-items: center;
+        }
+        
+        .image-choice {
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .image-choice img {
+            width: 100%;
+            height: auto;
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 6px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .image-choice input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .image-choice:hover {
+            border-color: #007bff;
+        }
+        
+        .image-choice input[type="radio"]:checked + img {
+            border: 2px solid #007bff;
+            box-shadow: 0 0 10px rgba(0,123,255,0.5);
+        }
+        
+        /* Styles for single image questions */
+        .single-image {
+            max-width: 400px;  /* Larger than the choice images */
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Styles for text choices */
+        .text-choices {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .text-choice {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .text-choice:hover {
+            background-color: #f8f9fa;
+            border-color: #007bff;
+        }
+        
+        .text-choice input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .text-choice input[type="radio"]:checked + span {
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        /* Style for grouped questions sharing an image */
+        .question-group {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .question-group .question {
+            border: none;
+            margin-top: 20px;
+        }
+        
+        .question-group .single-image {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <button onclick="goToDashboard()" class="button">Back to Dashboard</button>
+        <span id="studentName"></span>
+    </div>
+
+    <div id="timer" class="timer">Time: 00:00</div>
+
+    <h1>Advanced Vocabulary</h1>
+
+    <div class="passage">
+        <h3>Academic Word Usage</h3>
+        <p>
+            This section tests your understanding of advanced vocabulary commonly used in academic and professional contexts. 
+            You'll be tested on word meanings, usage in context, and relationships between words.
+        </p>
+    </div>
+
+    <form id="quizForm">
+        <div class="question">
+            <p>1. Which sign would you find in front of a restroom?</p>
+            <div class="image-choices">
+                <label class="image-choice">
+                    <input type="radio" name="q1" value="a" required>
+                    <img src="/question1-pic/1.png" alt="Option A">
+                </label>
+                <label class="image-choice">
+                    <input type="radio" name="q1" value="b">
+                    <img src="/question1-pic/2.png" alt="Option B">
+                </label>
+                <label class="image-choice">
+                    <input type="radio" name="q1" value="c">
+                    <img src="/question1-pic/3.png" alt="Option C">
+                </label>
+                <label class="image-choice">
+                    <input type="radio" name="q1" value="d">
+                    <img src="/question1-pic/4.png" alt="Option D">
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>2. What is the activity which normally happens on both Songkran and Christmas festival?</p>
+            <div class="image-choices">
+                <label class="image-choice">
+                    <input type="radio" name="q2" value="a" required>
+                    <img src="/question2-pic/1.png" alt="People eating festival food">
+                </label>
+                <label class="image-choice">
+                    <input type="radio" name="q2" value="b">
+                    <img src="/question2-pic/2.png" alt="People giving gifts">
+                </label>
+                <label class="image-choice">
+                    <input type="radio" name="q2" value="c">
+                    <img src="/question2-pic/3.png" alt="People dancing">
+                </label>
+                <label class="image-choice">
+                    <input type="radio" name="q2" value="d">
+                    <img src="/question2-pic/4.png" alt="People gathering with family">
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>3. Why does the student show his phone to the teacher?</p>
+            <img src="/question3-pic/pic1.png" alt="Student showing phone to teacher" class="single-image">
+            <div class="text-choices">
+                <label class="text-choice">
+                    <input type="radio" name="q3" value="a" required>
+                    <span>His essay is on his phone.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q3" value="b">
+                    <span>His phone shows pictures of his vacation.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q3" value="c">
+                    <span>He posted about his vacation on Facebook.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q3" value="d">
+                    <span>He wrote his essay assignment on his phone.</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>4. Which of the following is CORRECT about this sign?</p>
+            <img src="/question4-pic/pic1.png" alt="Pool rules sign" class="single-image">
+            <div class="text-choices">
+                <label class="text-choice">
+                    <input type="radio" name="q4" value="a" required>
+                    <span>Running is allowed to do if you hurry to go.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q4" value="b">
+                    <span>You don't have to go to the toilet if you don't want to.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q4" value="c">
+                    <span>Parents have to look after their children when they're swimming.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q4" value="d">
+                    <span>You can borrow your friend's T-shirts or shorts if you forget them.</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>5. What can be inferred from the comic strip?</p>
+            <img src="/question5-pic/pic1.png" alt="Comic strip about references" class="single-image">
+            <div class="text-choices">
+                <label class="text-choice">
+                    <input type="radio" name="q5" value="a" required>
+                    <span>An optimal amount of references may lower academic value.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q5" value="b">
+                    <span>An optimal amount of references lead to high academic value.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q5" value="c">
+                    <span>An optimal amount of references can make the work unoriginal.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q5" value="d">
+                    <span>The exact number of the optimal amount of references are known.</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>6. What did the woman probably do before talking to the man?</p>
+            <img src="/question6-pic/pic1.png" alt="Conversation between man and woman" class="single-image">
+            <div class="text-choices">
+                <label class="text-choice">
+                    <input type="radio" name="q6" value="a" required>
+                    <span>She went shopping.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q6" value="b">
+                    <span>She prepared to buy something.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q6" value="c">
+                    <span>She used all of her money in the account.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q6" value="d">
+                    <span>She didn't spend any money on what she wanted.</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>7. Which of the following is CORRECT?</p>
+            <img src="/question7-pic/pic1.png" alt="Fitness center rules" class="single-image">
+            <div class="text-choices">
+                <label class="text-choice">
+                    <input type="radio" name="q7" value="a" required>
+                    <span>People can use the equipment on their own.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q7" value="b">
+                    <span>People cannot bring their drinking water inside.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q7" value="c">
+                    <span>People have to pay to enter the fitness center.</span>
+                </label>
+                <label class="text-choice">
+                    <input type="radio" name="q7" value="d">
+                    <span>People must wear bathing suits to the fitness center.</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question-group">
+        
+            
+            <div class="question">
+                    <img src="/question8-9-pic/pic1.png" alt="Consumer behavior study results" class="single-image">
+                <p>8. Which of the following is discovered in the study?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="a" required>
+                        <span>None of the consumers want to continue self-pickup.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="b">
+                        <span>All of the consumers want to continue online shopping.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="c">
+                        <span>More than a half of the consumers want to continue self-pickup.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="d">
+                        <span>More than a half of the consumers want to continue online shopping.</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>9. Which of the following is CORRECT?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="a" required>
+                        <span>The number of people that answered this survey exceeded 10,000.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="b">
+                        <span>The majority of people are likely to continue ordering food for delivery.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="c">
+                        <span>Less than 20 percent of people are likely to continue buying through apps.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="d">
+                        <span>More than a quarter of respondents are likely to continue picking items in stores.</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-group">
+            <img src="/question10-11-pic/pic1.png" alt="Collections bar chart" class="single-image">
+            
+            <div class="question">
+                <p>10. Which collection has the greatest number of items?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="a" required>
+                        <span>Airplane sickness bags</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="b">
+                        <span>Piggy banks</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="c">
+                        <span>Plastic bread-bag clips</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="d">
+                        <span>Rubber ducks</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>11. According to the bar chart, which is INCORRECT?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="a" required>
+                        <span>There are about 5,000 items in collection of piggy banks.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="b">
+                        <span>There are more airplane sickness bags than coffee mugs.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="c">
+                        <span>Most of the items in collections are plastic bread-bag clips.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="d">
+                        <span>There are more garden gnomes than rubber ducks but less than clothing tags in collections.</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button type="submit" class="button" style="font-size: 1.1em; padding: 12px 30px;">
+                Submit Answers
+            </button>
+        </div>
+    </form>
+
+    <div id="results" class="hidden"></div>
+
+    <script>
+        // Authentication check
+        const authToken = localStorage.getItem('authToken');
+        if (!authToken) {
+            window.location.href = '/login.html';
+        }
+        document.getElementById('studentName').textContent = 
+            localStorage.getItem('studentName');
+
+        // Timer setup
+        const startTime = Date.now();
+        let timerInterval = setInterval(updateTimer, 1000);
+
+        function updateTimer() {
+            const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsedSeconds / 60);
+            const seconds = elapsedSeconds % 60;
+            document.getElementById('timer').textContent = 
+                `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function goToDashboard() {
+            window.location.href = '/advanced-dashboard.html';
+        }
+
+        // Add the correct answer
+        const correctAnswers = {
+            q1: {
+                answer: 'a',
+                explanation: 'This is the correct symbol for a restroom facility, commonly used in public spaces.'
+            },
+            q2: {
+                answer: 'd',
+                explanation: 'Family gathering is a common tradition in both Songkran and Christmas festivals. Both celebrations emphasize the importance of spending time with family members.'
+            },
+            q3: {
+                answer: 'c',
+                explanation: 'The student is showing his Facebook post about his vacation to the teacher.'
+            },
+            q4: {
+                answer: 'c',
+                explanation: 'The sign clearly states that parents must supervise their children while swimming, which is an important safety rule at the pool.'
+            },
+            q5: {
+                answer: 'b',
+                explanation: 'The comic strip suggests that having an optimal amount of references contributes to higher academic value in research work.'
+            },
+            q6: {
+                answer: 'b',
+                explanation: 'Based on the conversation, the woman must have prepared to make a purchase before talking to the man.'
+            },
+            q7: {
+                answer: 'a',
+                explanation: 'The correct answer is that people can use the equipment on their own, as the image shows a fitness center with people using equipment.'
+            },
+            q8: {
+                answer: 'd',
+                explanation: 'The study shows that more than 50% of consumers intend to continue online shopping.'
+            },
+            q9: {
+                answer: 'a',
+                explanation: 'The study indicates that the survey included more than 10,000 respondents.'
+            },
+            q10: {
+                answer: 'c',
+                explanation: 'The bar chart shows that plastic bread-bag clips have the highest number of items among all collections.'
+            },
+            q11: {
+                answer: 'b',
+                explanation: 'According to the bar chart, there are fewer airplane sickness bags than coffee mugs, making this statement incorrect.'
+            }
+        };
+
+        // Form submission handler
+        document.getElementById('quizForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            
+            try {
+                let score = 0;
+                let results = [];
+                const endTime = Date.now();
+                const timeSpent = Math.floor((endTime - startTime) / 1000);
+                
+                // Calculate score
+                Object.keys(correctAnswers).forEach(question => {
+                    const selected = document.querySelector(`input[name="${question}"]:checked`);
+                    const questionDiv = document.querySelector(`input[name="${question}"]`)
+                        .closest('.question');
+                    const questionText = questionDiv.querySelector('p').textContent;
+
+                    if (selected && selected.value === correctAnswers[question].answer) {
+                        score++;
+                    }
+                    
+                    results.push({
+                        questionText,
+                        selectedAnswer: selected ? selected.value : 'Not answered',
+                        correct: selected?.value === correctAnswers[question].answer,
+                        explanation: correctAnswers[question].explanation
+                    });
+                });
+
+                // Calculate percentage
+                const percentage = Math.round((score / Object.keys(correctAnswers).length) * 100);
+
+                // Save results
+                const response = await fetch('/api/results', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sectionTitle: 'advancedvocabulary',
+                        score: percentage,
+                        timeSpent,
+                        totalQuestions: Object.keys(correctAnswers).length,
+                        answers: results
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save results');
+                }
+
+                // Show results
+                displayResults(results, percentage);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to submit answers. Please try again.');
+                submitButton.disabled = false;
+            }
+        });
+
+        function displayResults(results, percentage) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h2>Results</h2>
+                <p>Score: ${percentage}%</p>
+                <p>Questions correct: ${results.filter(r => r.correct).length} out of ${results.length}</p>
+                <div class="answers-review">
+                    ${results.map((result, index) => `
+                        <div class="question-result ${result.correct ? 'correct' : 'incorrect'}">
+                            <p><strong>Question ${index + 1}:</strong> ${result.questionText}</p>
+                            <p>${result.correct ? '✓ Correct' : '✗ Incorrect'}</p>
+                            <p><em>${result.explanation}</em></p>
+                        </div>
+                    `).join('')}
+                </div>
+                <button onclick="goToDashboard()" class="button">Return to Dashboard</button>
+            `;
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html> 

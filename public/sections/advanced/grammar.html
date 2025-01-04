@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Advanced Grammar - P6 Exam</title>
+    <style>
+        /* Base styles */
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        .passage {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #007bff;
+            line-height: 1.6;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        /* Styles for text choices */
+        .text-choices {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .text-choice {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .text-choice:hover {
+            background-color: #f8f9fa;
+            border-color: #007bff;
+        }
+        
+        .text-choice input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .text-choice input[type="radio"]:checked + span {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Grammar-specific styles */
+        .grammar-example {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-left: 3px solid #007bff;
+            margin: 10px 0;
+            font-style: italic;
+        }
+        
+        .question-group {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        /* Results styling */
+        .answers-review {
+            margin-top: 20px;
+        }
+        
+        .question-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        
+        .correct {
+            border-left: 4px solid #28a745;
+        }
+        
+        .incorrect {
+            border-left: 4px solid #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <button onclick="goToDashboard()" class="button">Back to Dashboard</button>
+        <span id="studentName"></span>
+    </div>
+
+    <div id="timer" class="timer">Time: 00:00</div>
+
+    <h1>Advanced Grammar</h1>
+
+    <div class="passage">
+        <h3>Grammar Mastery Test</h3>
+        <p>This section tests your understanding of advanced English grammar concepts including tenses, 
+           modals, conditionals, and complex sentence structures.</p>
+    </div>
+
+    <form id="quizForm">
+        <!-- Present & Past Tense Group -->
+        <div class="question-group">
+            <h3>Present & Past Tense</h3>
+            
+            <!-- Questions 1-6 -->
+            <div class="question">
+                <p>1. Which sentence uses the correct present tense?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q1" value="a" required>
+                        <span>She go to school every day.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q1" value="b" required>
+                        <span>He walks to the park every morning.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q1" value="c" required>
+                        <span>They is reading a book now.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q1" value="d" required>
+                        <span>The boy play football every afternoon.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q1" value="e" required>
+                        <span>She not likes chocolate.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q1" value="f" required>
+                        <span>We are sleeps early on weekdays.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>2. Choose the correct sentence in present continuous tense.</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q2" value="a" required>
+                        <span>He is eat lunch with his friends.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q2" value="b" required>
+                        <span>The cats are sleeping under the tree.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q2" value="c" required>
+                        <span>She writing a letter to her friend.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q2" value="d" required>
+                        <span>They was playing football now.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q2" value="e" required>
+                        <span>We are studying for the test tonight.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q2" value="f" required>
+                        <span>The children is playing in the garden.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>3. Which sentences use the simple present tense correctly? (Select all that apply)</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="checkbox" name="q3" value="a">
+                        <span>She is my best friend.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q3" value="b">
+                        <span>The sun rises in the east.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q3" value="c">
+                        <span>He do his homework every day.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q3" value="d">
+                        <span>We has many toys at home.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q3" value="e">
+                        <span>They likes playing video games.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q3" value="f">
+                        <span>I am reads a book in my room.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>4. Which sentence uses the past tense correctly?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q4" value="a" required>
+                        <span>He eat dinner last night.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q4" value="b" required>
+                        <span>She walked to the store yesterday.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q4" value="c" required>
+                        <span>They plays basketball yesterday afternoon.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q4" value="d" required>
+                        <span>We are went to the park last weekend.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q4" value="e" required>
+                        <span>The dog barks loudly last night.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q4" value="f" required>
+                        <span>She is sing at the event yesterday.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>5. Which sentence is in the past continuous tense?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="checkbox" name="q5" value="a">
+                        <span>I was watching TV when she called.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q5" value="b">
+                        <span>They are sleeping at 10 PM.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q5" value="c">
+                        <span>He walks home when it started raining.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q5" value="d">
+                        <span>The birds sing in the morning.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q5" value="e">
+                        <span>She were writing a letter yesterday.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="checkbox" name="q5" value="f">
+                        <span>We were watching a movie at 8 PM.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>6. Choose the correct past perfect sentence.</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q6" value="a" required>
+                        <span>I had finish my homework before dinner.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q6" value="b" required>
+                        <span>She had finished her work before the meeting started.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q6" value="c" required>
+                        <span>They has completed the project before the meeting.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q6" value="d" required>
+                        <span>He is finished his meal before the movie started.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q6" value="e" required>
+                        <span>We was gone to bed when the phone rang.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q6" value="f" required>
+                        <span>The children had play in the park before sunset.</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future Tense & Subject-Verb Agreement Group -->
+        <div class="question-group">
+            <h3>Future Tense & Subject-Verb Agreement</h3>
+            
+            <div class="question">
+                <p>7. Which sentence uses the future tense correctly?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q7" value="a" required>
+                        <span>I will go to the beach tomorrow.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q7" value="b" required>
+                        <span>She is go to the mall next week.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q7" value="c" required>
+                        <span>They will comes to the party.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q7" value="d" required>
+                        <span>He going to buy a new car.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q7" value="e" required>
+                        <span>We will going to the zoo next Sunday.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q7" value="f" required>
+                        <span>The dog is barks when you arrive.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>8. Choose the correct future continuous sentence.</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="a" required>
+                        <span>I will be study at 7 PM tonight.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="b" required>
+                        <span>They will be playing football at that time.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="c" required>
+                        <span>She will plays the piano during the concert.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="d" required>
+                        <span>We will are watching TV when you call.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="e" required>
+                        <span>He will studying for the test tomorrow.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q8" value="f" required>
+                        <span>The students are be doing their homework at 8 PM.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>9. Which sentence demonstrates correct subject-verb agreement?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="a" required>
+                        <span>The team are playing well today.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="b" required>
+                        <span>Each of the students has completed their assignment.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="c" required>
+                        <span>Neither of the boys have arrived yet.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="d" required>
+                        <span>The quality of the apples were poor.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="e" required>
+                        <span>One of the cars have broken down.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q9" value="f" required>
+                        <span>The committee were divided in their opinions.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>10. Choose the sentence with correct future perfect tense usage.</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="a" required>
+                        <span>By next year, I will completed the course.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="b" required>
+                        <span>By this time tomorrow, they will have finished the project.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="c" required>
+                        <span>She will has graduated by June.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="d" required>
+                        <span>We will having completed the task by then.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="e" required>
+                        <span>The movie will been finished by 9 PM.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q10" value="f" required>
+                        <span>He will have been complete the work by Monday.</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Verbs & Conditionals Group -->
+        <div class="question-group">
+            <h3>Modal Verbs & Conditionals</h3>
+
+            <div class="question">
+                <p>11. Which sentence uses modal verbs correctly?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="a" required>
+                        <span>You must to go now.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="b" required>
+                        <span>She can swimming very well.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="c" required>
+                        <span>They should have told me earlier.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="d" required>
+                        <span>He might to come tomorrow.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="e" required>
+                        <span>We will can visit next week.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q11" value="f" required>
+                        <span>I must can do this.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>12. Choose the correct first conditional sentence.</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q12" value="a" required>
+                        <span>If it rains, I stay at home.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q12" value="b" required>
+                        <span>If it will rain, I will staying home.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q12" value="c" required>
+                        <span>If it rains, I will stay at home.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q12" value="d" required>
+                        <span>If it is raining, I stayed home.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q12" value="e" required>
+                        <span>If it rained, I will stayed home.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q12" value="f" required>
+                        <span>If it will rain, I stay home.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>13. Which sentence shows the correct use of 'must have'?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q13" value="a" required>
+                        <span>She must have gone home - her car isn't here.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q13" value="b" required>
+                        <span>They must have to leave early yesterday.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q13" value="c" required>
+                        <span>He must having finished the work.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q13" value="d" required>
+                        <span>I must have to study tonight.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q13" value="e" required>
+                        <span>We must have been go to the party.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q13" value="f" required>
+                        <span>You must have to been there.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>14. Select the correct second conditional sentence.</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q14" value="a" required>
+                        <span>If I was rich, I will buy a mansion.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q14" value="b" required>
+                        <span>If I were you, I would study harder.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q14" value="c" required>
+                        <span>If she had money, she will travel.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q14" value="d" required>
+                        <span>If we would have time, we go to the beach.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q14" value="e" required>
+                        <span>If it was raining, I had stayed home.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q14" value="f" required>
+                        <span>If they were here, they would had helped.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>15. Which sentence uses 'could have' correctly?</p>
+                <div class="text-choices">
+                    <label class="text-choice">
+                        <input type="radio" name="q15" value="a" required>
+                        <span>We could have to go earlier.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q15" value="b" required>
+                        <span>She could having won the race.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q15" value="c" required>
+                        <span>They could have been arrive on time.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q15" value="d" required>
+                        <span>You could have told me about the party.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q15" value="e" required>
+                        <span>I could have to study more.</span>
+                    </label>
+                    <label class="text-choice">
+                        <input type="radio" name="q15" value="f" required>
+                        <span>He could have been went there.</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button type="submit" class="button" style="font-size: 1.1em; padding: 12px 30px;">
+                Submit Answers
+            </button>
+        </div>
+    </form>
+
+    <div id="results" class="hidden"></div>
+
+    <script>
+        let startTime;  // Declare startTime in global scope
+        let timerInterval;
+
+        // Move correctAnswers before DOM event listener
+        const correctAnswers = {
+            q1: {
+                answer: 'b',
+                explanation: '"He walks to the park every morning" correctly uses the simple present tense with proper subject-verb agreement.'
+            },
+            q2: {
+                answer: 'b',
+                explanation: '"The cats are sleeping under the tree" correctly uses the present continuous tense with proper subject-verb agreement.'
+            },
+            q3: {
+                answers: ['a', 'b'],
+                multipleCorrect: true,
+                explanation: 'Both sentences are correct uses of simple present tense:\n' +
+                           '- "She is my best friend" expresses a permanent situation\n' +
+                           '- "The sun rises in the east" expresses a general truth'
+            },
+            q4: {
+                answer: 'b',
+                explanation: '"She walked to the store yesterday" correctly uses the past tense with -ed ending.'
+            },
+            q5: {
+                answers: ['a', 'f'],
+                multipleCorrect: true,
+                explanation: 'Both sentences are correct uses of past continuous tense:\n' +
+                            '- "I was watching TV when she called" shows an action in progress interrupted by another action\n' +
+                            '- "We were watching a movie at 8 PM" shows an action in progress at a specific time in the past\n' +
+                            'Both use the correct form of "to be" (was/were) + verb-ing'
+            },
+            q6: {
+                answer: 'b',
+                explanation: '"She had finished her work before the meeting started" correctly uses the past perfect tense (had + past participle). Note that we need the past participle form "finished" not "finish".'
+            },
+            q7: {
+                answer: 'a',
+                explanation: '"I will go to the beach tomorrow" correctly uses the future tense with "will" followed by the base form of the verb.'
+            },
+            q8: {
+                answer: 'b',
+                explanation: '"They will be playing football at that time" correctly uses the future continuous tense (will + be + verb-ing). Note that we need the -ing form of the verb (playing, studying, etc.).'
+            },
+            q9: {
+                answer: 'b',
+                explanation: '"Each of the students has completed their assignment" is correct because with "each of," the verb should be singular.'
+            },
+            q10: {
+                answer: 'b',
+                explanation: '"By this time tomorrow, they will have finished the project" correctly uses the future perfect tense.'
+            },
+            q11: {
+                answer: 'c',
+                explanation: '"They should have told me earlier" correctly uses the modal verb "should have" with a past participle.'
+            },
+            q12: {
+                answer: 'c',
+                explanation: '"If it rains, I will stay at home" is the correct first conditional form using:\n' +
+                            '- Simple present tense in the if-clause ("if it rains")\n' +
+                            '- Will + base verb in the main clause ("will stay")'
+            },
+            q13: {
+                answer: 'a',
+                explanation: '"She must have gone home - her car isn\'t here" correctly uses "must have" + past participle.'
+            },
+            q14: {
+                answer: 'b',
+                explanation: '"If I were you, I would study harder" is a correct second conditional.'
+            },
+            q15: {
+                answer: 'd',
+                explanation: '"You could have told me about the party" correctly uses "could have" + past participle.'
+            }
+        };
+
+        function updateTimer() {
+            const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsedSeconds / 60);
+            const seconds = elapsedSeconds % 60;
+            document.getElementById('timer').textContent = 
+                `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function goToDashboard() {
+            window.location.href = '/advanced-dashboard.html';
+        }
+
+        function displayResults(results, percentage) {
+            clearInterval(timerInterval);  // Stop the timer
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h2>Results</h2>
+                <p>Score: ${percentage}%</p>
+                <p>Questions correct: ${results.filter(r => r.correct).length} out of ${results.length}</p>
+                <div class="answers-review">
+                    ${results.map((result, index) => `
+                        <div class="question-result ${result.correct ? 'correct' : 'incorrect'}">
+                            <p><strong>Question ${index + 1}:</strong> ${result.questionText}</p>
+                            <p>${result.correct ? '✓ Correct' : '✗ Incorrect'}</p>
+                            <p><em>${result.explanation}</em></p>
+                        </div>
+                    `).join('')}
+                </div>
+                <button onclick="goToDashboard()" class="button">Return to Dashboard</button>
+            `;
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function submitResults(results, percentage, timeSpent) {
+            const authToken = localStorage.getItem('authToken');
+            if (!authToken) {
+                throw new Error('No authentication token found');
+            }
+
+            const response = await fetch('/api/results', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + authToken,
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    sectionTitle: 'grammar',
+                    score: percentage,
+                    timeSpent,
+                    totalQuestions: Object.keys(correctAnswers).length,
+                    answers: results
+                })
+            });
+
+            return response;
+        }
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Authentication check
+            const authToken = localStorage.getItem('authToken');
+            if (!authToken) {
+                window.location.href = '/login.html';
+                return;
+            }
+
+            // Function to handle auth errors
+            async function checkAuthStatus() {
+                try {
+                    const response = await fetch('/api/student/progress', {
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`
+                        }
+                    });
+                    
+                    if (response.status === 401) {
+                        // Token expired or invalid
+                        localStorage.removeItem('authToken');
+                        localStorage.removeItem('studentName');
+                        alert('Your session has expired. Please log in again.');
+                        window.location.href = '/login.html';
+                        return false;
+                    }
+                    return true;
+                } catch (error) {
+                    console.error('Auth check error:', error);
+                    return false;
+                }
+            }
+
+            // Check auth status before proceeding
+            checkAuthStatus().then(isAuthenticated => {
+                if (!isAuthenticated) return;
+                
+                document.getElementById('studentName').textContent = 
+                    localStorage.getItem('studentName');
+
+                // Timer setup
+                startTime = Date.now();
+                timerInterval = setInterval(updateTimer, 1000);
+
+                // Rest of the initialization code...
+            });
+
+            // Form submission handler
+            const quizForm = document.getElementById('quizForm');
+            if (quizForm) {
+                quizForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    if (!confirm('Are you sure you want to submit your final answers? You won\'t be able to make changes after submission.')) {
+                        return;
+                    }
+                    console.log('Form submitted, starting process...');
+
+                    const submitButton = event.target.querySelector('button[type="submit"]');
+                    submitButton.disabled = true;
+                    
+                    try {
+                        let score = 0;
+                        let results = [];
+                        const endTime = Date.now();
+                        const timeSpent = Math.floor((endTime - startTime) / 1000);
+                        
+                        // Get fresh token
+                        const authToken = localStorage.getItem('authToken');
+                        console.log('Auth token retrieved:', authToken ? 'Present' : 'Missing');
+
+                        if (!authToken) {
+                            throw new Error('No authentication token found');
+                        }
+
+                        // Calculate score
+                        console.log('Calculating score...');
+                        console.log('Checking answers...');
+
+                        Object.keys(correctAnswers).forEach(question => {
+                            let isCorrect = false;
+                            let selectedAnswers = [];
+
+                            if (correctAnswers[question].multipleCorrect) {
+                                const selected = Array.from(document.querySelectorAll(`input[name="${question}"]:checked`))
+                                    .map(input => input.value);
+                                const correctSet = new Set(correctAnswers[question].answers);
+                                const selectedSet = new Set(selected);
+                                
+                                isCorrect = correctSet.size === selectedSet.size && 
+                                    [...correctSet].every(value => selectedSet.has(value));
+                                selectedAnswers = selected;
+                                if (isCorrect) score++;
+                            } else {
+                                const selected = document.querySelector(`input[name="${question}"]:checked`);
+                                isCorrect = selected && selected.value === correctAnswers[question].answer;
+                                selectedAnswers = selected ? [selected.value] : [];
+                                if (isCorrect) score++;
+                            }
+                            
+                            results.push({
+                                questionText: document.querySelector(`input[name="${question}"]`)
+                                    .closest('.question')
+                                    .querySelector('p').textContent,
+                                selectedAnswer: selectedAnswers.length > 0 ? selectedAnswers.join(', ') : 'Not answered',
+                                correct: isCorrect,
+                                explanation: correctAnswers[question].explanation
+                            });
+                        });
+
+                        // Calculate percentage
+                        const percentage = Math.round((score / Object.keys(correctAnswers).length) * 100);
+                        console.log('Final score:', percentage + '%');
+
+                        // Save results
+                        console.log('Sending results to server...');
+                        console.log('Token format check:', authToken.substring(0, 20) + '...');
+                        const response = await fetch('/api/results', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + authToken,
+                                'Content-Type': 'application/json'
+                            },
+                            credentials: 'include',
+                            body: JSON.stringify({
+                                sectionTitle: 'grammar',
+                                score: percentage,
+                                timeSpent,
+                                totalQuestions: Object.keys(correctAnswers).length,
+                                answers: results
+                            })
+                        });
+
+                        console.log('Server response status:', response.status);
+                        const responseData = await response.text();
+                        console.log('Server response:', responseData);
+
+                        if (!response.ok) {
+                            if (response.status === 401) {
+                                // Try to refresh the token first
+                                try {
+                                    const refreshResponse = await fetch('/api/refresh-token', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Authorization': 'Bearer ' + authToken
+                                        },
+                                        credentials: 'include'
+                                    });
+                                    
+                                    if (refreshResponse.ok) {
+                                        const newToken = await refreshResponse.json();
+                                        localStorage.setItem('authToken', newToken.token);
+                                        // Retry the submission with new token
+                                        return submitResults(results, percentage, timeSpent);
+                                    }
+                                } catch (refreshError) {
+                                    console.error('Token refresh failed:', refreshError);
+                                }
+                                
+                                localStorage.removeItem('authToken');
+                                localStorage.removeItem('studentName');
+                                alert('Your session has expired. Please log in again.');
+                                window.location.href = '/login.html';
+                                return;
+                            }
+                            throw new Error(`Failed to save results: ${responseData}`);
+                        }
+
+                        // Show results
+                        displayResults(results, percentage);
+
+                    } catch (error) {
+                        console.error('Detailed error:', error);
+                        console.error('Error stack:', error.stack);
+                        alert('Failed to submit answers. Please try again.');
+                        submitButton.disabled = false;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -13,6 +13,7 @@ const sectionResultSchema = new mongoose.Schema({
         default: 1
     },
     score: Number,
+    timeSpent: Number,
     totalQuestions: Number,
     answers: [answerSchema],
     completedAt: {
@@ -32,6 +33,16 @@ const resultSchema = new mongoose.Schema({
         type: Number,
         default: 0
     }
+});
+
+// Add logging to track any modifications
+resultSchema.pre('save', function(next) {
+    console.log('Pre-save sections:', this.sections.map(s => ({
+        title: s.sectionTitle,
+        score: s.score,
+        originalScore: s._doc?.score // Check if score is being modified
+    })));
+    next();
 });
 
 module.exports = mongoose.model('Result', resultSchema); 

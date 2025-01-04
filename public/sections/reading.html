@@ -59,13 +59,36 @@
       background-color: #e9ecef;
       border-radius: 5px;
     }
+    /* Timer styles */
+    .timer {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #f8f9fa;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        font-size: 1.2em;
+        z-index: 1000;
+    }
+    .timer.warning {
+        background-color: #ffeeba;
+        color: #856404;
+    }
+    .timer.danger {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
   </style>
 </head>
 <body>
   <div class="nav-buttons">
     <button onclick="window.location.href='/dashboard.html'" class="button">Back to Dashboard</button>
+    <button onclick="resetSection()" class="button" style="background-color: #dc3545;">Reset This Section</button>
     <span id="studentName"></span>
   </div>
+
+  <div id="timer" class="timer">Time: 00:00</div>
 
   <h1>Reading Comprehension</h1>
   <div class="stage-indicator">Stage 1: Reading Comprehension</div>
@@ -325,14 +348,35 @@
     // Adjust any if you change question wording or options.
     const correctAnswers = {
       // Blanks (1–5)
-      q1: 'c', // peaceful
-      q2: 'b', // mesmerized
-      q3: 'c', // closely with
-      q4: 'a', // harmony
-      q5: 'a', // unstoppable
+      q1: {
+        answer: 'c',
+        explanation: 'The passage states that Paula was "amazed at how calm and polite everyone was being" and mentions that the march was peaceful.'
+      },
+      q2: {
+        answer: 'b',
+        explanation: 'The text shows that Paula was captivated when watching Dr. King, especially when he began speaking from his heart rather than from prepared notes.'
+      },
+      q3: {
+        answer: 'c',
+        explanation: 'The passage shows that the crowd\'s thoughts and hopes matched "closely with" Dr. King\'s words, showing how his speech resonated with everyone.'
+      },
+      q4: {
+        answer: 'a',
+        explanation: 'Paula wonders if different races could live in "harmony", which means living together peacefully and in agreement.'
+      },
+      q5: {
+        answer: 'a',
+        explanation: 'When Paula thinks about all the people who marched, she realizes they could be "unstoppable" together, showing the power of unity.'
+      },
       // Vocabulary / Context (6–15)
-      q6: 'b', // astonished
-      q7: 'd', // agitated
+      q6: {
+        answer: 'b',
+        explanation: 'Paula was "amazed" at how calm everyone was, showing she was astonished or surprised by the peaceful nature of the crowd.'
+      },
+      q7: {
+        answer: 'd',
+        explanation: 'People were worried about crowds becoming "agitated" or upset, but this didn\'t happen during the march.'
+      },
       q8: 'a', // strong will
       q9: 'c', // no sign of trouble
       q10: 'b', // enormous
@@ -365,88 +409,254 @@
       return 'Reading';
     }
 
-    document.getElementById('quizForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
-      let score = 0;
-      let results = [];
-
-      Object.keys(correctAnswers).forEach(question => {
-        const selected = document.querySelector(`input[name="${question}"]:checked`);
-        const questionDiv = document.querySelector(`input[name="${question}"]`)
-          .closest('.question');
-        const questionText = questionDiv.querySelector('p').textContent;
-
-        if (selected && selected.value === correctAnswers[question]) {
-          score++;
-          results.push({
-            questionText,
-            selectedAnswer: selected.value,
-            correct: true
-          });
-        } else {
-          results.push({
-            questionText,
-            selectedAnswer: selected ? selected.value : 'Not answered',
-            topic: getTopicFromQuestion(questionText),
-            correct: false
-          });
+    // Timer variables
+    let startTime = Date.now();
+    let timerInterval;
+    
+    // Start timer
+    function startTimer() {
+        startTime = Date.now();
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+    
+    // Update timer display
+    function updateTimer() {
+        const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+        const minutes = Math.floor(elapsedTime / 60);
+        const seconds = elapsedTime % 60;
+        const timerElement = document.getElementById('timer');
+        
+        timerElement.textContent = `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        // Add warning colors
+        if (minutes >= 25) {
+            timerElement.classList.add('danger');
+        } else if (minutes >= 20) {
+            timerElement.classList.add('warning');
         }
-      });
+    }
+    
+    // Start timer when page loads
+    startTimer();
 
-      // Display results
-      const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = `
-        <h3>Quiz Results</h3>
-        <p>Score: ${score}/${Object.keys(correctAnswers).length}</p>
-        <ul>
-          ${results.map(result => `
-            <li class="${result.correct ? 'correct' : 'incorrect'}">
-              <strong>Q:</strong> ${result.questionText}<br/>
-              ${result.correct ? 'Correct!' : 
-                `Incorrect! - Review topic: ${result.topic} <span class="lesson-link">(lesson coming soon)</span>`}
-            </li>`
-          ).join('')}
-        </ul>
-      `;
-      resultsDiv.classList.remove('hidden');
+    document.getElementById('quizForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        let score = 0;
+        let results = [];
+        const endTime = Date.now();
+        const timeSpent = Math.floor((endTime - startTime) / 1000);
 
-      // Save results via API
-      try {
-        const response = await fetch('/api/results', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${authToken}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            sectionTitle: 'Reading',
-            stage: 1,
-            score,
-            totalQuestions: Object.keys(correctAnswers).length,
-            answers: results.map(r => ({
-              ...r,
-              topic: getTopicFromQuestion(r.questionText)
-            }))
-          })
+        Object.keys(correctAnswers).forEach(question => {
+            const selected = document.querySelector(`input[name="${question}"]:checked`);
+            const questionDiv = document.querySelector(`input[name="${question}"]`)
+                .closest('.question');
+            const questionText = questionDiv.querySelector('p').textContent;
+
+            if (selected && selected.value === correctAnswers[question].answer) {
+                score++;
+                results.push({
+                    questionText,
+                    selectedAnswer: selected.value,
+                    correct: true
+                });
+            } else {
+                results.push({
+                    questionText,
+                    selectedAnswer: selected ? selected.value : 'Not answered',
+                    topic: getTopicFromQuestion(questionText),
+                    correct: false
+                });
+            }
         });
 
-        const data = await response.json();
-        if (!data.success) {
-          if (response.status === 401) {
-            alert('Your session has expired. Please log in again.');
-            window.location.href = '/login.html';
-          } else {
+        // Display results
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = `
+            <h3>Quiz Results</h3>
+            <p>Time taken: ${Math.floor(timeSpent/60)}m ${timeSpent%60}s</p>
+            <p>Score: ${score}/${Object.keys(correctAnswers).length}</p>
+            <ul>
+                ${results.map(result => `
+                    <li class="${result.correct ? 'correct' : 'incorrect'}">
+                        <strong>Q:</strong> ${result.questionText}<br/>
+                        ${result.correct ? 'Correct!' : 
+                            `Incorrect! - Review topic: ${result.topic} <span class="lesson-link">(lesson coming soon)</span>`}
+                    </li>`
+                ).join('')}
+            </ul>
+        `;
+        resultsDiv.classList.remove('hidden');
+
+        // Scroll to results with animation
+        resultsDiv.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center'
+        });
+
+        // Save results via API
+        try {
+            const response = await fetch('/api/results', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sectionTitle: 'Reading',
+                    stage: 1,
+                    score,
+                    timeSpent,
+                    totalQuestions: Object.keys(correctAnswers).length,
+                    answers: results.map(r => ({
+                        ...r,
+                        topic: getTopicFromQuestion(r.questionText)
+                    }))
+                })
+            });
+
+            const data = await response.json();
+            if (!data.success) {
+                if (response.status === 401) {
+                    alert('Your session has expired. Please log in again.');
+                    window.location.href = '/login.html';
+                } else {
+                    alert('Failed to save results. Please try again.');
+                }
+            } else {
+                alert('Results saved successfully!');
+                window.location.href = '/dashboard.html';
+            }
+        } catch (error) {
+            console.error('Error:', error);
             alert('Failed to save results. Please try again.');
-          }
-        } else {
-          alert('Results saved successfully!');
-          window.location.href = '/dashboard.html';
         }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to save results. Please try again.');
-      }
     });
+
+    // Add the review mode functionality
+    const urlParams = new URLSearchParams(window.location.search);
+    const isReviewMode = urlParams.get('mode') === 'review';
+
+    // Add styles for highlighting
+    const style = document.createElement('style');
+    style.textContent = `
+        .question.incorrect {
+            background-color: #ffe6e6;
+            border-left: 4px solid #dc3545;
+        }
+        .question.correct {
+            background-color: #e6ffe6;
+            border-left: 4px solid #28a745;
+        }
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #17a2b8;
+            font-style: italic;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Load previous answers if in review mode
+    async function loadPreviousAnswers() {
+        try {
+            const response = await fetch('/api/results', {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            });
+            const data = await response.json();
+            
+            const readingResult = data.sections.find(s => 
+                s.sectionTitle.toLowerCase() === 'reading'
+            );
+            
+            if (readingResult) {
+                // Populate answers and disable inputs
+                readingResult.answers.forEach(answer => {
+                    const input = document.querySelector(
+                        `input[value="${answer.selectedAnswer}"][name="${answer.questionNumber}"]`
+                    );
+                    if (input) {
+                        input.checked = true;
+                    }
+                });
+                
+                // Disable all inputs and the submit button
+                document.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.disabled = true;
+                });
+                document.querySelector('button[type="submit"]').style.display = 'none';
+                
+                // Show results with explanations
+                displayResults(readingResult.answers);
+            }
+        } catch (error) {
+            console.error('Error loading previous answers:', error);
+        }
+    }
+
+    // If in review mode, load previous answers
+    if (isReviewMode) {
+        loadPreviousAnswers();
+    }
+
+    function displayResults(answers) {
+        answers.forEach((answer, index) => {
+            const questionNumber = `q${index + 1}`;
+            const questionDiv = document.querySelector(`input[name="${questionNumber}"]`).closest('.question');
+            const correctAnswer = correctAnswers[questionNumber].answer;
+            const isCorrect = answer.selectedAnswer === correctAnswer;
+
+            // Highlight question
+            questionDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+            // Add explanation for incorrect answers
+            if (!isCorrect) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.innerHTML = `
+                    <strong>Explanation:</strong> ${correctAnswers[questionNumber].explanation}<br>
+                    <strong>Your answer:</strong> ${getAnswerText(questionNumber, answer.selectedAnswer)}<br>
+                    <strong>Correct answer:</strong> ${getAnswerText(questionNumber, correctAnswer)}
+                `;
+                questionDiv.appendChild(explanation);
+            }
+        });
+    }
+
+    function getAnswerText(questionNumber, value) {
+        const questionDiv = document.querySelector(`input[name="${questionNumber}"]`).closest('.question');
+        return questionDiv.querySelector(`input[value="${value}"]`).nextSibling.textContent.trim();
+    }
+
+    // Reset section function
+    async function resetSection() {
+        if (confirm('Are you sure you want to reset this section? Your progress will be lost.')) {
+            try {
+                const response = await fetch('/api/reset-section', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sectionTitle: 'Reading'
+                    })
+                });
+                
+                if (response.ok) {
+                    alert('Section reset successfully');
+                    window.location.href = '/dashboard.html';
+                } else {
+                    alert('Failed to reset section');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to reset section');
+            }
+        }
+    }
   </script>
 </body>
 </html>
