@@ -465,3 +465,51 @@ function cleanup() {
 - Implement smooth scrolling to results
 
 ## Original Content Continues Below... 
+
+## Things To Do
+
+### 1. Standardize Section Naming
+Current issue: Inconsistent naming conventions for advanced sections
+- "advancedreading" uses prefix
+- "grammar" doesn't use prefix for advanced section
+- Other advanced sections are inconsistently named
+
+Solution needed:
+- Standardize naming convention for all advanced sections
+- Either use "advanced" prefix consistently (e.g., "advancedgrammar", "advancedreading")
+- Or remove prefix and use a different method to distinguish advanced sections
+
+### 2. Standardize Score Handling
+Current issue: Different sections handle scores differently
+- Grammar and Advanced Reading send percentages (0-100)
+- Other sections send raw scores (e.g., 25 out of 25)
+
+Solution needed:
+- Choose one consistent method:
+  - Option 1: All sections send raw scores, dashboard calculates percentages
+  - Option 2: All sections calculate and send percentages
+- Update all section handlers to use the chosen method
+- Update dashboard display logic accordingly
+
+### 3. Section Organization
+Current issue: Advanced sections are not properly categorized
+- Some sections appear as regular sections
+- Advanced dashboard shows mix of regular and advanced sections
+
+Solution needed:
+- Clear separation between regular and advanced sections
+- Consistent categorization in database
+- Updated dashboard filtering logic
+
+### Priority Tasks
+1. Standardize score submission format across all sections
+2. Fix section naming conventions
+3. Update dashboard logic to handle standardized data
+4. Update documentation to reflect new standards
+5. Test all sections with new standardization
+
+### Impact Assessment
+- Database schema updates may be needed
+- Existing student progress data might need migration
+- Dashboard display logic will need updates
+- Section submission handlers will need modification 

@@ -1,38 +1,23 @@
 # Dependencies
 node_modules/
+package-lock.json
 
 # Environment variables
 .env
 
-# Logs
-logs
-*.log
-npm-debug.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-
-# MongoDB
-/data
-/MongoDB
-MongoDB/
-**/MongoDB/**
-mongod.lock
-WiredTiger*
-*.wt
+# MongoDB data
+data/
 diagnostic.data/
 journal/
-
-# Database files
-*.0
-*.1
-*.2
-*.3
-*.ns
-*.turtle
+*.wt
+mongod.lock
+WiredTiger*
 storage.bson
+
+# Logs
+logs/
+*.log
+npm-debug.log*
 
 # IDE files
 .vscode/
@@ -40,4 +25,4 @@ storage.bson
 
 # OS files
 .DS_Store
-Thumbs.db 
+Thumbs.db

@@ -79,6 +79,23 @@
         background-color: #f8d7da;
         color: #721c24;
     }
+    .success {
+        color: #28a745;
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+    }
+    
+    .error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -377,25 +394,79 @@
         answer: 'd',
         explanation: 'People were worried about crowds becoming "agitated" or upset, but this didn\'t happen during the march.'
       },
-      q8: 'a', // strong will
-      q9: 'c', // no sign of trouble
-      q10: 'b', // enormous
-      q11: 'b', // became very quiet
-      q12: 'a', // noticeable charisma
-      q13: 'b', // raised platform for speaking
-      q14: 'b', // repeated or reflected
-      q15: 'b', // options for the future
+      q8: {
+        answer: 'a',
+        explanation: 'The passage shows people were "determined to march," meaning they had a strong will to participate despite concerns about violence.'
+      },
+      q9: {
+        answer: 'c',
+        explanation: 'The text states "she saw no hint that things might turn violent," directly indicating there were no signs of trouble.'
+      },
+      q10: {
+        answer: 'b',
+        explanation: 'In the phrase "huge crowd," the word "enormous" is the closest synonym to "huge."'
+      },
+      q11: {
+        answer: 'b',
+        explanation: 'When the crowd "fell silent," it means they became very quiet in response to Dr. King\'s presence.'
+      },
+      q12: {
+        answer: 'a',
+        explanation: 'His "presence" made the entire crowd fall silent, indicating he had a strong and noticeable charisma.'
+      },
+      q13: {
+        answer: 'b',
+        explanation: 'A "podium" refers to the raised platform where Dr. King stood to speak to the crowd.'
+      },
+      q14: {
+        answer: 'b',
+        explanation: 'His words "echoed" their thoughts, meaning his speech repeated or reflected what the crowd was thinking.'
+      },
+      q15: {
+        answer: 'b',
+        explanation: 'Paula was excited about the "possibilities" or options for the future of America.'
+      },
       // Comprehension / Inference (16–25)
-      q16: 'b', // expected more violence
-      q17: 'c', // sincere / from the heart
-      q18: 'a', // dream of unity
-      q19: 'c', // excited about the future
-      q20: 'a', // living together peacefully
-      q21: 'b', // many working together
-      q22: 'c', // respectful and attentive
-      q23: 'c', // Paula calls her family is never mentioned
-      q24: 'c', // she has hope
-      q25: 'b'  // excitement and optimism
+      q16: {
+        answer: 'b',
+        explanation: 'Paula was amazed because she had heard worries about violence, but the crowd was calm and polite instead.'
+      },
+      q17: {
+        answer: 'c',
+        explanation: 'The passage states he "pushed his speech away and began talking as though straight from his heart," indicating sincere, unscripted speaking.'
+      },
+      q18: {
+        answer: 'a',
+        explanation: 'Dr. King spoke of "his dream for all the people of America," focusing on unity and equality.'
+      },
+      q19: {
+        answer: 'c',
+        explanation: 'The passage states she "could not go to sleep because she was so excited about the possibilities of what might be next in America\'s future."'
+      },
+      q20: {
+        answer: 'a',
+        explanation: 'Paula wondered "Could those of different races ever live in peace and harmony?"'
+      },
+      q21: {
+        answer: 'b',
+        explanation: 'Many people working together can create change.'
+      },
+      q22: {
+        answer: 'c',
+        explanation: 'The crowd was deeply respectful and attentive.'
+      },
+      q23: {
+        answer: 'c',
+        explanation: 'Paula calls her family is never mentioned.'
+      },
+      q24: {
+        answer: 'c',
+        explanation: 'She has hope because of the large crowd working together.'
+      },
+      q25: {
+        answer: 'b',
+        explanation: 'Excitement and optimism for societal change.'
+      }
     };
 
     function getTopicFromQuestion(questionText) {
@@ -451,6 +522,13 @@
             const questionDiv = document.querySelector(`input[name="${question}"]`)
                 .closest('.question');
             const questionText = questionDiv.querySelector('p').textContent;
+
+            // Add debugging - just this part is new
+            console.log(`Question ${question}:`, {
+                selected: selected?.value,
+                correct: correctAnswers[question].answer,
+                isMatch: selected?.value === correctAnswers[question].answer
+            });
 
             if (selected && selected.value === correctAnswers[question].answer) {
                 score++;
@@ -520,21 +598,51 @@
                     alert('Your session has expired. Please log in again.');
                     window.location.href = '/login.html';
                 } else {
-                    alert('Failed to save results. Please try again.');
+                    // Show error message in results div instead of alert
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML += `<p class="error">Failed to save results. Please try again.</p>`;
                 }
             } else {
-                alert('Results saved successfully!');
-                window.location.href = '/dashboard.html';
+                // Add a success message to results div instead of alert and redirect
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML += `
+                    <p class="success">Results saved successfully! You can review your answers below.</p>
+                    <button onclick="window.location.href='/dashboard.html'" class="button">
+                        Return to Dashboard
+                    </button>
+                `;
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Failed to save results. Please try again.');
+            // Show error in results div instead of alert
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML += `<p class="error">Failed to save results. Please try again.</p>`;
         }
     });
 
     // Add the review mode functionality
     const urlParams = new URLSearchParams(window.location.search);
     const isReviewMode = urlParams.get('mode') === 'review';
+
+    console.log('Review mode:', isReviewMode);
+    if (isReviewMode) {
+        console.log('Starting review mode...');
+        // Add review mode indicator
+        const reviewBanner = document.createElement('div');
+        reviewBanner.style.cssText = `
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        `;
+        reviewBanner.textContent = 'Review Mode - Loading your previous answers...';
+        document.querySelector('.stage-indicator').after(reviewBanner);
+        
+        loadPreviousAnswers();
+    }
 
     // Add styles for highlighting
     const style = document.createElement('style');
@@ -557,48 +665,108 @@
     `;
     document.head.appendChild(style);
 
-    // Load previous answers if in review mode
+    // Update the loadPreviousAnswers function
     async function loadPreviousAnswers() {
+        console.log('Loading previous answers...');
         try {
-            const response = await fetch('/api/results', {
+            // Get the auth token from localStorage
+            const authToken = localStorage.getItem('authToken');
+            
+            const response = await fetch('/api/student/progress', {
                 headers: {
                     'Authorization': `Bearer ${authToken}`
                 }
             });
             const data = await response.json();
+            console.log('Progress data:', data);
             
-            const readingResult = data.sections.find(s => 
-                s.sectionTitle.toLowerCase() === 'reading'
-            );
-            
-            if (readingResult) {
-                // Populate answers and disable inputs
-                readingResult.answers.forEach(answer => {
-                    const input = document.querySelector(
-                        `input[value="${answer.selectedAnswer}"][name="${answer.questionNumber}"]`
+            // Find the reading section results - handle different possible data structures
+            let readingSection;
+            if (data.sections) {
+                if (data.sections.reading) {
+                    readingSection = data.sections.reading;
+                } else if (Array.isArray(data.sections)) {
+                    readingSection = data.sections.find(s => 
+                        s.sectionTitle?.toLowerCase() === 'reading'
                     );
-                    if (input) {
-                        input.checked = true;
-                    }
-                });
+                } else {
+                    readingSection = Object.values(data.sections).find(s => 
+                        s.sectionTitle?.toLowerCase() === 'reading'
+                    );
+                }
+            }
+            
+            console.log('Reading section:', readingSection);
+
+            if (readingSection) {
+                console.log('Found reading section, processing answers...');
                 
-                // Disable all inputs and the submit button
+                // Show score at the top first
+                const scoreDiv = document.createElement('div');
+                scoreDiv.className = 'result';
+                scoreDiv.innerHTML = `
+                    <h3>Previous Attempt Results</h3>
+                    <p>Score: ${readingSection.score}/${Object.keys(correctAnswers).length}</p>
+                    <p>Time taken: ${Math.floor(readingSection.timeSpent/60)}m ${readingSection.timeSpent%60}s</p>
+                `;
+                document.querySelector('.stage-indicator').after(scoreDiv);
+
+                // Process each question
+                Object.keys(correctAnswers).forEach(questionNum => {
+                    const questionDiv = document.querySelector(`input[name="${questionNum}"]`).closest('.question');
+                    const correctAnswer = correctAnswers[questionNum].answer;
+                    
+                    // Find the corresponding answer in the student's results
+                    const studentAnswer = readingSection.answers?.find(a => 
+                        a.questionText.includes(questionNum.substring(1)) || // Match question number
+                        questionDiv.querySelector('p').textContent.includes(a.questionText)
+                    );
+
+                    // Mark correct/incorrect
+                    if (studentAnswer) {
+                        questionDiv.classList.add(studentAnswer.correct ? 'correct' : 'incorrect');
+                        
+                        // Show student's answer
+                        const selectedInput = questionDiv.querySelector(`input[value="${studentAnswer.selectedAnswer}"]`);
+                        if (selectedInput) {
+                            selectedInput.checked = true;
+                        }
+                    }
+
+                    // Add explanation
+                    const explanation = document.createElement('div');
+                    explanation.className = 'explanation';
+                    explanation.innerHTML = `
+                        <strong>Explanation:</strong> ${correctAnswers[questionNum].explanation}<br>
+                        <strong>Your answer:</strong> ${studentAnswer ? 
+                            questionDiv.querySelector(`input[value="${studentAnswer.selectedAnswer}"]`)
+                                ?.nextSibling?.textContent?.trim() || 'Not found' : 'Not answered'}<br>
+                        <strong>Correct answer:</strong> ${
+                            questionDiv.querySelector(`input[value="${correctAnswer}"]`)
+                                ?.nextSibling?.textContent?.trim() || correctAnswer
+                        }
+                    `;
+                    questionDiv.appendChild(explanation);
+                });
+
+                // Disable all inputs and hide submit button
                 document.querySelectorAll('input[type="radio"]').forEach(input => {
                     input.disabled = true;
                 });
-                document.querySelector('button[type="submit"]').style.display = 'none';
-                
-                // Show results with explanations
-                displayResults(readingResult.answers);
+                const submitButton = document.querySelector('button[type="submit"]');
+                if (submitButton) submitButton.style.display = 'none';
+            } else {
+                console.log('No reading section found in data');
+                document.querySelector('.stage-indicator').insertAdjacentHTML('afterend', 
+                    '<div class="error">No previous attempts found for this section.</div>'
+                );
             }
         } catch (error) {
-            console.error('Error loading previous answers:', error);
+            console.error('Error in loadPreviousAnswers:', error);
+            document.querySelector('.stage-indicator').insertAdjacentHTML('afterend', 
+                '<div class="error">Error loading previous answers. Please try again later.</div>'
+            );
         }
-    }
-
-    // If in review mode, load previous answers
-    if (isReviewMode) {
-        loadPreviousAnswers();
     }
 
     function displayResults(answers) {

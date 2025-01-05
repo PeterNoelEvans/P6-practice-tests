@@ -153,17 +153,12 @@
             });
             const progress = await response.json();
 
-            // Calculate overall progress based on completed sections
-            const totalSections = sections.length; // Total number of available sections
-            const completedSections = Object.values(progress.sections).filter(section => section.completed).length;
-            const overallProgress = Math.round((completedSections / totalSections) * 100);
-
             // Update overall progress bar
             const overallProgressBar = document.getElementById('overallProgressBar');
             const overallProgressText = document.getElementById('overallProgressText');
             if (overallProgressBar && overallProgressText) {
-                overallProgressBar.style.width = `${overallProgress}%`;
-                overallProgressText.textContent = `${overallProgress}% Complete`;
+                overallProgressBar.style.width = `${progress.overallProgress}%`;
+                overallProgressText.textContent = `${Math.round(progress.overallProgress)}% Complete`;
             }
 
             sections.forEach(section => {
@@ -188,8 +183,8 @@
                                 ${sectionProgress.completed 
                                     ? `<span class="score">Score: ${
                                         section.id.toLowerCase() === 'grammar' 
-                                            ? Math.round((sectionProgress.score / section.questions) * 100)  // Convert grammar score to percentage
-                                            : Math.round((sectionProgress.score / section.questions) * 100)  // Other sections
+                                            ? sectionProgress.score  // Grammar sends percentage
+                                            : Math.round((sectionProgress.score / section.questions) * 100)
                                         }%</span>
                                         <br><span>Stage: ${sectionProgress.stage}</span>`
                                     : '<span>Not attempted</span>'
