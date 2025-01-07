@@ -182,11 +182,9 @@
                             <div>
                                 ${sectionProgress.completed 
                                     ? `<span class="score">Score: ${
-                                        section.id === 'grammar' 
-                                            ? Math.round(sectionProgress.score)  // Grammar already sends percentage
-                                            : Math.round((sectionProgress.score / section.questions) * 100)  // Calculate for others
-                                        }%</span>
-                                        <br><span>Stage: ${sectionProgress.stage}</span>`
+                                        sectionProgress.score  // All sections now send percentages
+                                    }%</span>
+                                    <br><span>Stage: ${sectionProgress.stage}</span>`
                                     : '<span>Not attempted</span>'
                                 }
                             </div>
@@ -312,6 +310,33 @@
             });
 
             console.log('Raw section data:', data.sections);
+        }
+
+        function displayProgress(sections) {
+            const sectionsContainer = document.getElementById('sections');
+            sectionsContainer.innerHTML = '';
+            
+            sections.forEach(section => {
+                sectionsContainer.innerHTML += displaySectionStatus(section);
+            });
+        }
+
+        function displaySectionStatus(section) {
+            const score = section.score;
+            const status = getPerformanceLabel(score);
+            const statusClass = score >= 80 ? 'excellent' : 'needs-improvement';
+            
+            return `
+                <div class="section-card">
+                    <h3>${section.title}</h3>
+                    <p>${section.description}</p>
+                    <div class="section-status">
+                        <span>Score: ${score}%</span>
+                        <span class="status ${statusClass}">${status}</span>
+                    </div>
+                    <p>Stage: ${section.stage}</p>
+                </div>
+            `;
         }
 
         // Load dashboard when page loads

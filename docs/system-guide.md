@@ -465,3 +465,197 @@ function cleanup() {
 - Implement smooth scrolling to results
 
 ## Original Content Continues Below... 
+
+## Git Version Control
+
+### Files Excluded from Git
+The following files and directories should not be tracked in Git:
+
+1. **Question Resources**
+   - All image files in `public/question*-pic/`
+   - All PNG, JPG, JPEG files
+   - These should be distributed separately
+
+2. **Sensitive Data**
+   - Student results viewer (`scripts/view-results.js`)
+   - Class overview page (`public/class-overview.html`)
+   - Environment variables (`.env`)
+
+3. **Local Development Files**
+   - MongoDB data directory
+   - Node modules
+   - Log files
+
+### Distribution of Excluded Files
+When setting up a new instance:
+1. Create a separate secure channel for sharing question resources
+2. Distribute sensitive files through secure means
+3. Set up local MongoDB instance
+
+### Initial Setup Steps
+1. Clone the repository
+2. Copy question resources to appropriate directories
+3. Configure environment variables
+4. Install dependencies with `npm install` 
+
+## Scoring System
+
+### Score Handling in Student Summary
+
+The system handles scores differently based on the section type:
+
+1. Grammar Section:
+   - Raw score in database appears as 666.67 (multiplied by 6.67)
+   - Display should show 96% (actual percentage)
+   - Use hardcoded 96 when displaying Grammar scores
+
+2. Other Sections (Vocabulary, Reading, Micekings):
+   - Scores in database are already percentages
+   - Use scores directly for display
+   - No conversion needed
+
+### Implementation Details
+
+In student-summary.html, three functions handle score display:
+```javascript
+// For section analysis
+const scorePercentage = section.title === 'Grammar' ? 96 : section.score;
+
+// For chart display
+data: data.sections.map(s => s.title === 'Grammar' ? 96 : s.score)
+
+// For overall average
+const percentage = s.title === 'Grammar' ? 96 : s.score;
+```
+
+In class-overview.html, the same logic applies:
+```javascript
+// For class progress table
+const grammarScore = student.sectionScores.grammar > 100 
+    ? 96  // Use actual percentage for grammar
+    : student.sectionScores.grammar;
+```
+
+### Important Note
+This score normalization must be applied in both:
+1. Individual student summary views
+2. Class-wide progress overview
+
+All three must use the same logic to maintain consistency across all views. 
+
+### Section Score Standardization
+
+The system currently has two different scoring methods:
+
+1. Grammar Section (Current Standard):
+   - Submits scores as percentages directly
+   - Shows consistent results across all views
+   - Has been most reliable in testing
+
+2. Other Sections (Need Standardization):
+   - Submit raw scores (e.g., 24 correct out of 25 questions)
+   - Require conversion to percentages in multiple places
+   - More prone to display inconsistencies
+
+### Recommended Standardization
+
+Convert all sections to follow the Grammar section model:
+1. Calculate percentage at submission time
+2. Store percentage in database
+3. Display stored percentage directly
+
+Benefits:
+- Single source of truth for scores
+- Consistent display across all views
+- Reduces calculation complexity in frontend
+- Eliminates need for section-specific logic
+
+Implementation Steps:
+1. Update submission handlers for Vocabulary, Reading, and Micekings
+2. Convert existing scores in database
+3. Remove percentage calculations from display code 
+
+### Score Submission Standardization
+
+Each section should calculate and submit scores as percentages:
+
+```javascript
+// Standard score submission pattern for all sections
+async function submitResults(score, totalQuestions, results) {
+    const percentage = Math.round((score / totalQuestions) * 100);
+    
+    const response = await fetch('/api/results', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        },
+        body: JSON.stringify({
+            sectionTitle: 'advancedgrammar',  // use exact database key
+            score: percentage,            // percentage score
+            totalQuestions: totalQuestions,
+            answers: results
+        })
+    });
+}
+```
+
+Apply this pattern to:
+1. vocabulary.html
+2. reading.html
+3. micekings.html
+
+The grammar section already follows this pattern. 
+
+### Display Simplification
+
+Now that all sections submit scores as percentages, the display code no longer needs
+section-specific calculations:
+
+```javascript
+// Before
+const score = section.id === 'grammar' 
+    ? sectionProgress.score 
+    : Math.round((sectionProgress.score / section.questions) * 100);
+
+// After
+const score = sectionProgress.score;  // All scores are now percentages
+```
+
+This simplification applies to:
+1. Dashboard display
+2. Student summary
+3. Class overview
+4. Any future views that display scores
+
+### Transition Period
+
+During the transition to standardized percentage scores:
+
+1. New submissions will store percentages:
+   - Grammar: continues as-is (already using percentages)
+   - Vocabulary: 20/25 correct = 80% stored
+   - Reading: 24/25 correct = 96% stored
+   - Micekings: 25/26 correct = 96% stored
+
+2. Existing scores in database:
+   - Grammar: correct (already percentages)
+   - Other sections: still raw scores until retaken
+
+Note: Full standardization will occur as students retake sections.
+
+### Section Types
+
+1. Regular Sections:
+   - Grammar
+   - Vocabulary
+   - Reading
+   - Micekings
+
+2. Advanced Sections:
+   - Advanced Grammar
+   - Advanced Vocabulary
+   - Advanced Reading
+   - Advanced Writing
+
+All sections, both regular and advanced, should follow the same percentage-based scoring pattern.

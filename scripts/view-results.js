@@ -13,12 +13,8 @@ async function viewResults() {
             console.log('\nStudent:', result.student);
             console.log('Sections:');
             result.sections.forEach(section => {
-                console.log({
-                    title: section.sectionTitle,
-                    score: section.score,
-                    totalQuestions: section.totalQuestions,
-                    completedAt: section.completedAt
-                });
+                console.log('\nSection Details:');
+                console.log(JSON.stringify(section, null, 2));
             });
         });
 

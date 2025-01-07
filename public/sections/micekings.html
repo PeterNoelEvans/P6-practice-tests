@@ -559,22 +559,27 @@
           }
         });
 
-        // Save results to server
-        const response = await fetch('/api/results', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${authToken}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            sectionTitle: 'micekings',
-            stage: 1,
-            score: score,
-            timeSpent,
-            totalQuestions: Object.keys(correctAnswers).length,
-            answers: results
-          })
-        });
+        // Save results via API
+        try {
+          const percentage = Math.round((score / Object.keys(correctAnswers).length) * 100);
+          
+          const response = await fetch('/api/results', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            },
+            body: JSON.stringify({
+              sectionTitle: 'micekings',
+              score: percentage,  // Send percentage instead of raw score
+              totalQuestions: Object.keys(correctAnswers).length,
+              answers: results
+            })
+          });
+        } catch (error) {
+          console.error('Error saving results:', error);
+          throw new Error('Failed to save results');
+        }
 
         // Debug the response
         console.log('Response status:', response.status);

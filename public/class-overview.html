@@ -110,31 +110,33 @@
 
         function displayProgress(progressData) {
             const tbody = document.getElementById('progressTableBody');
-            tbody.innerHTML = progressData.map(student => `
-                <tr>
-                    <td>${student.studentName}</td>
-                    <td class="progress-cell">
-                        <div class="progress-bar" style="width: ${student.overallProgress}%"></div>
-                        <div class="progress-text">${Math.round(student.overallProgress)}%</div>
-                    </td>
-                    <td class="progress-cell">
-                        <div class="progress-bar" style="width: ${student.sectionScores.grammar}%"></div>
-                        <div class="progress-text">${Math.round(student.sectionScores.grammar)}%</div>
-                    </td>
-                    <td class="progress-cell">
-                        <div class="progress-bar" style="width: ${student.sectionScores.vocabulary}%"></div>
-                        <div class="progress-text">${Math.round(student.sectionScores.vocabulary)}%</div>
-                    </td>
-                    <td class="progress-cell">
-                        <div class="progress-bar" style="width: ${student.sectionScores.reading}%"></div>
-                        <div class="progress-text">${Math.round(student.sectionScores.reading)}%</div>
-                    </td>
-                    <td class="progress-cell">
-                        <div class="progress-bar" style="width: ${student.sectionScores.micekings}%"></div>
-                        <div class="progress-text">${Math.round(student.sectionScores.micekings)}%</div>
-                    </td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = progressData.map(student => {
+                return `
+                    <tr>
+                        <td>${student.studentName}</td>
+                        <td class="progress-cell">
+                            <div class="progress-bar" style="width: ${student.overallProgress}%"></div>
+                            <div class="progress-text">${Math.round(student.overallProgress)}%</div>
+                        </td>
+                        <td class="progress-cell">
+                            <div class="progress-bar" style="width: ${student.sectionScores.grammar}%"></div>
+                            <div class="progress-text">${Math.round(student.sectionScores.grammar)}%</div>
+                        </td>
+                        <td class="progress-cell">
+                            <div class="progress-bar" style="width: ${student.sectionScores.vocabulary}%"></div>
+                            <div class="progress-text">${Math.round(student.sectionScores.vocabulary)}%</div>
+                        </td>
+                        <td class="progress-cell">
+                            <div class="progress-bar" style="width: ${student.sectionScores.reading}%"></div>
+                            <div class="progress-text">${Math.round(student.sectionScores.reading)}%</div>
+                        </td>
+                        <td class="progress-cell">
+                            <div class="progress-bar" style="width: ${student.sectionScores.micekings}%"></div>
+                            <div class="progress-text">${Math.round(student.sectionScores.micekings)}%</div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function exportToCSV() {

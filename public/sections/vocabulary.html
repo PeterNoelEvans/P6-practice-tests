@@ -549,17 +549,17 @@
 
       // Save results via API
       try {
+        const percentage = Math.round((score / Object.keys(correctAnswers).length) * 100);
+        
         const response = await fetch('/api/results', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${authToken}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
           },
           body: JSON.stringify({
-            sectionTitle: 'Vocabulary',
-            stage: 1,
-            score,
-            timeSpent,
+            sectionTitle: 'vocabulary',
+            score: percentage,
             totalQuestions: Object.keys(correctAnswers).length,
             answers: results.map(result => ({
               ...result,

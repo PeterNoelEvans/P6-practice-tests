@@ -41,3 +41,15 @@ storage.bson
 # OS files
 .DS_Store
 Thumbs.db 
+
+# Image files and question resources
+public/question*-pic/
+public/**/question*-pic/
+**/question*-pic/**
+*.png
+*.jpg
+*.jpeg
+
+# Student data and results
+scripts/view-results.js
+public/class-overview.html 
