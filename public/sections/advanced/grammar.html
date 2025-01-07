@@ -700,7 +700,7 @@
         }
 
         function displayResults(results, percentage) {
-            clearInterval(timerInterval);  // Stop the timer
+            clearInterval(timerInterval);
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = `
                 <h2>Results</h2>
@@ -717,8 +717,6 @@
                 </div>
                 <button onclick="goToDashboard()" class="button">Return to Dashboard</button>
             `;
-            resultsDiv.classList.remove('hidden');
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
         }
 
         async function submitResults(results, percentage, timeSpent) {
@@ -825,9 +823,18 @@
                         console.log('Checking answers...');
 
                         Object.keys(correctAnswers).forEach(question => {
+                            const selected = document.querySelector(`input[name="${question}"]:checked`);
+                            
+                            // Add debug for question 1
+                            if (question === 'q1') {
+                                console.log('Question 1 validation:', {
+                                    selected: selected?.value,
+                                    correctAnswer: correctAnswers[question].answer,
+                                    isMatch: selected?.value === correctAnswers[question].answer
+                                });
+                            }
+                            
                             let isCorrect = false;
-                            let selectedAnswers = [];
-
                             if (correctAnswers[question].multipleCorrect) {
                                 const selected = Array.from(document.querySelectorAll(`input[name="${question}"]:checked`))
                                     .map(input => input.value);
@@ -836,12 +843,9 @@
                                 
                                 isCorrect = correctSet.size === selectedSet.size && 
                                     [...correctSet].every(value => selectedSet.has(value));
-                                selectedAnswers = selected;
                                 if (isCorrect) score++;
                             } else {
-                                const selected = document.querySelector(`input[name="${question}"]:checked`);
                                 isCorrect = selected && selected.value === correctAnswers[question].answer;
-                                selectedAnswers = selected ? [selected.value] : [];
                                 if (isCorrect) score++;
                             }
                             
@@ -849,7 +853,7 @@
                                 questionText: document.querySelector(`input[name="${question}"]`)
                                     .closest('.question')
                                     .querySelector('p').textContent,
-                                selectedAnswer: selectedAnswers.length > 0 ? selectedAnswers.join(', ') : 'Not answered',
+                                selectedAnswer: selected ? selected.value : 'Not answered',
                                 correct: isCorrect,
                                 explanation: correctAnswers[question].explanation
                             });
@@ -861,14 +865,12 @@
 
                         // Save results
                         console.log('Sending results to server...');
-                        console.log('Token format check:', authToken.substring(0, 20) + '...');
                         const response = await fetch('/api/results', {
                             method: 'POST',
                             headers: {
-                                'Authorization': 'Bearer ' + authToken,
+                                'Authorization': `Bearer ${authToken}`,
                                 'Content-Type': 'application/json'
                             },
-                            credentials: 'include',
                             body: JSON.stringify({
                                 sectionTitle: 'grammar',
                                 score: percentage,
@@ -878,47 +880,23 @@
                             })
                         });
 
-                        console.log('Server response status:', response.status);
-                        const responseData = await response.text();
-                        console.log('Server response:', responseData);
-
                         if (!response.ok) {
-                            if (response.status === 401) {
-                                // Try to refresh the token first
-                                try {
-                                    const refreshResponse = await fetch('/api/refresh-token', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Authorization': 'Bearer ' + authToken
-                                        },
-                                        credentials: 'include'
-                                    });
-                                    
-                                    if (refreshResponse.ok) {
-                                        const newToken = await refreshResponse.json();
-                                        localStorage.setItem('authToken', newToken.token);
-                                        // Retry the submission with new token
-                                        return submitResults(results, percentage, timeSpent);
-                                    }
-                                } catch (refreshError) {
-                                    console.error('Token refresh failed:', refreshError);
-                                }
-                                
-                                localStorage.removeItem('authToken');
-                                localStorage.removeItem('studentName');
-                                alert('Your session has expired. Please log in again.');
-                                window.location.href = '/login.html';
-                                return;
-                            }
-                            throw new Error(`Failed to save results: ${responseData}`);
+                            throw new Error('Failed to save results');
                         }
 
                         // Show results
                         displayResults(results, percentage);
+                        
+                        // Hide the form
+                        quizForm.style.display = 'none';
+                        
+                        // Show the results div
+                        const resultsDiv = document.getElementById('results');
+                        resultsDiv.classList.remove('hidden');
+                        resultsDiv.scrollIntoView({ behavior: 'smooth' });
 
                     } catch (error) {
-                        console.error('Detailed error:', error);
-                        console.error('Error stack:', error.stack);
+                        console.error('Error:', error);
                         alert('Failed to submit answers. Please try again.');
                         submitButton.disabled = false;
                     }

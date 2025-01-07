@@ -251,37 +251,27 @@ app.get('/api/verify-credentials', async (req, res) => {
 app.get('/api/student/progress', auth, async (req, res) => {
     try {
         const result = await Result.findOne({ student: req.student._id });
-        
+        console.log('Progress data:', result);
         if (!result) {
-            return res.json({
-                overallProgress: 0,
-                sections: {}
+            return res.json({ 
+                sections: {},
+                overallProgress: 0 
             });
         }
-        
-        const progress = {
-            overallProgress: result.overallProgress,
-            sections: {}
-        };
-
-        result.sections.forEach(section => {
-            // Handle both regular and advanced sections
-            const sectionKey = section.sectionTitle.toLowerCase();
-            progress.sections[sectionKey] = {
-                completed: true,
-                score: section.score,
-                stage: section.stage
-            };
-            
-            // Calculate overall progress including advanced sections
-            const totalSections = 7;  // 4 regular + 3 advanced sections
-            progress.overallProgress = Math.round(
-                (Object.keys(progress.sections).length / totalSections) * 100
-            );
+        res.json({
+            sections: result.sections.reduce((acc, section) => {
+                acc[section.sectionTitle.toLowerCase()] = {
+                    completed: true,
+                    score: section.score,
+                    stage: section.stage,
+                    answers: section.answers
+                };
+                return acc;
+            }, {}),
+            overallProgress: result.overallProgress
         });
-        
-        res.json(progress);
     } catch (error) {
+        console.error('Error fetching progress:', error);
         res.status(500).json({ error: error.message });
     }
 });

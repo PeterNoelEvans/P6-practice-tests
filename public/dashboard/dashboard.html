@@ -153,17 +153,12 @@
             });
             const progress = await response.json();
 
-            // Calculate overall progress based on completed sections
-            const totalSections = sections.length; // Total number of available sections
-            const completedSections = Object.values(progress.sections).filter(section => section.completed).length;
-            const overallProgress = Math.round((completedSections / totalSections) * 100);
-
             // Update overall progress bar
             const overallProgressBar = document.getElementById('overallProgressBar');
             const overallProgressText = document.getElementById('overallProgressText');
             if (overallProgressBar && overallProgressText) {
-                overallProgressBar.style.width = `${overallProgress}%`;
-                overallProgressText.textContent = `${overallProgress}% Complete`;
+                overallProgressBar.style.width = `${progress.overallProgress}%`;
+                overallProgressText.textContent = `${Math.round(progress.overallProgress)}% Complete`;
             }
 
             sections.forEach(section => {
@@ -187,17 +182,11 @@
                             <div>
                                 ${sectionProgress.completed 
                                     ? `<span class="score">Score: ${
-<<<<<<< HEAD
-                                        sectionProgress.score  // All sections now send percentages
-                                    }%</span>
-                                    <br><span>Stage: ${sectionProgress.stage}</span>`
-=======
                                         section.id.toLowerCase() === 'grammar' 
-                                            ? Math.round((sectionProgress.score / section.questions) * 100)  // Convert grammar score to percentage
-                                            : Math.round((sectionProgress.score / section.questions) * 100)  // Other sections
+                                            ? sectionProgress.score  // Grammar sends percentage
+                                            : Math.round((sectionProgress.score / section.questions) * 100)
                                         }%</span>
                                         <br><span>Stage: ${sectionProgress.stage}</span>`
->>>>>>> 432ddd30fc3ed58d4e833007f84ef9dd928d749d
                                     : '<span>Not attempted</span>'
                                 }
                             </div>
@@ -326,34 +315,6 @@
         }
 
         function displayProgress(sections) {
-<<<<<<< HEAD
-            const sectionsContainer = document.getElementById('sections');
-            sectionsContainer.innerHTML = '';
-            
-            sections.forEach(section => {
-                sectionsContainer.innerHTML += displaySectionStatus(section);
-            });
-        }
-
-        function displaySectionStatus(section) {
-            const score = section.score;
-            const status = getPerformanceLabel(score);
-            const statusClass = score >= 80 ? 'excellent' : 'needs-improvement';
-            
-            return `
-                <div class="section-card">
-                    <h3>${section.title}</h3>
-                    <p>${section.description}</p>
-                    <div class="section-status">
-                        <span>Score: ${score}%</span>
-                        <span class="status ${statusClass}">${status}</span>
-                    </div>
-                    <p>Stage: ${section.stage}</p>
-                </div>
-            `;
-        }
-
-=======
             const progressList = document.getElementById('progressList');
             sections.forEach(section => {
                 const sectionProgress = results.sections.find(s => 
@@ -370,7 +331,6 @@
             });
         }
 
->>>>>>> 432ddd30fc3ed58d4e833007f84ef9dd928d749d
         // Load dashboard when page loads
         loadDashboard();
     </script>

@@ -233,18 +233,42 @@
         function displayPreviousPerformance(data) {
             const performanceDiv = document.getElementById('previousPerformance');
 
-            // Get all advanced sections
-            const advancedSections = Object.keys(data.sections)
-                .filter(key => key.toLowerCase().startsWith('advanced'))
-                .map(key => data.sections[key]);
-
-            const completedSections = advancedSections.filter(section => section.completed);
+            // Get all sections we're interested in
+            const sectionKeys = ['grammar', 'reading', 'vocabulary', 'writing'];
+            const completedSections = sectionKeys
+                .filter(key => data.sections[key] && data.sections[key].completed)
+                .map(key => ({
+                    ...data.sections[key],
+                    sectionTitle: key  // Add the section title since it's missing
+                }));
 
             console.log('Completed sections:', completedSections);
             
-            const totalScore = completedSections.reduce((acc, section) => acc + section.score, 0);
+            const totalScore = completedSections.reduce((acc, section) => {
+                console.log('Processing section:', section.sectionTitle);
+                console.log('Raw score:', section.score);
+                
+                // Calculate percentage based on section type
+                let percentage;
+                if (section.sectionTitle === 'grammar') {
+                    percentage = section.score;  // Grammar already sends percentage
+                } else {
+                    percentage = Math.round((section.score / 25) * 100);  // Convert raw scores to percentage
+                }
+                
+                console.log('Calculated percentage:', percentage);
+                console.log('Running total:', acc + percentage);
+                
+                return acc + percentage;
+            }, 0);
+            
+            console.log('Final total score:', totalScore);
+            console.log('Number of completed sections:', completedSections.length);
+            
             const averageScore = completedSections.length > 0 ? 
                 Math.round(totalScore / completedSections.length) : 0;
+            
+            console.log('Calculated average:', averageScore);
 
             performanceDiv.innerHTML = `
                 <p>Completed Advanced Sections: ${completedSections.length}/4</p>
@@ -279,15 +303,20 @@
             const sections = data.sections;
             console.log('Available sections:', sections);
 
+            const questionsPerSection = {
+                'reading': 25,
+                'grammar': 25,
+                'vocabulary': 25,
+                'writing': 25
+            };
+
             document.querySelectorAll('.section-card').forEach(card => {
                 const sectionTitle = card.querySelector('h3').textContent;
-                const cleanTitle = sectionTitle.replace('Advanced ', '');
-                const sectionKey = 'advanced' + cleanTitle.toLowerCase().replace(/\s+/g, '');
+                const sectionKey = sectionTitle.toLowerCase().replace('advanced ', '').trim();
                 console.log('Looking for section:', sectionKey);
                 const sectionData = sections[sectionKey];
                 console.log('Found section data:', sectionData);
 
-                // Get or create score indicator
                 let scoreIndicator = card.querySelector('.section-score-indicator');
                 scoreIndicator.className = 'section-score-indicator not-attempted';
                 scoreIndicator.textContent = 'Not attempted';
@@ -295,11 +324,23 @@
                 if (sectionData && sectionData.completed) {
                     console.log('Updating completed section:', sectionKey, sectionData.score);
                     card.classList.add('completed');
-                    scoreIndicator.textContent = `${sectionData.score}%`;
+                    
+                    // Calculate percentage based on section type
+                    let percentage;
+                    if (sectionKey === 'grammar') {
+                        // Grammar section already sends percentage
+                        percentage = sectionData.score;
+                    } else {
+                        // Other sections send raw scores
+                        const totalQuestions = questionsPerSection[sectionKey] || 25;
+                        percentage = Math.round((sectionData.score / totalQuestions) * 100);
+                    }
+                    
+                    scoreIndicator.textContent = `${percentage}%`;
                     scoreIndicator.classList.remove('not-attempted');
-                    if (sectionData.score >= 80) {
+                    if (percentage >= 80) {
                         scoreIndicator.classList.add('score-high');
-                    } else if (sectionData.score >= 60) {
+                    } else if (percentage >= 60) {
                         scoreIndicator.classList.add('score-medium');
                     } else {
                         scoreIndicator.classList.add('score-low');

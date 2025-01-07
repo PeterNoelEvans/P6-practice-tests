@@ -1,15 +1,12 @@
 {
-  "name": "testinghtml",
+  "name": "p6-practice-tests",
   "version": "1.0.0",
+  "description": "P6 English Practice Tests",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon --signal SIGTERM server.js"
+    "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -18,7 +15,6 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.3"
   },
-  "description": "",
   "devDependencies": {
     "nodemon": "^3.0.2"
   }
